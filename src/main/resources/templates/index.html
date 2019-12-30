@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -41,60 +42,6 @@
                 <li> <a href="lyear_ui_icons.html"> 用户管理</a> </li>
               </ul>
             </li>
-            <!--            <li class="nav-item nav-item-has-subnav">-->
-            <!--              <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 表单</a>-->
-            <!--              <ul class="nav nav-subnav">-->
-            <!--                <li> <a href="lyear_forms_elements.html">基本元素</a> </li>-->
-            <!--                <li> <a href="lyear_forms_radio.html">单选框</a> </li>-->
-            <!--                <li> <a href="lyear_forms_checkbox.html">复选框</a> </li>-->
-            <!--                <li> <a href="lyear_forms_switch.html">开关</a> </li>-->
-            <!--              </ul>-->
-            <!--            </li>-->
-            <!--            <li class="nav-item nav-item-has-subnav">-->
-            <!--              <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 示例页面</a>-->
-            <!--              <ul class="nav nav-subnav">-->
-            <!--                <li> <a href="lyear_pages_doc.html">文档列表</a> </li>-->
-            <!--                <li> <a href="lyear_pages_gallery.html">图库列表</a> </li>-->
-            <!--                <li> <a href="lyear_pages_config.html">网站配置</a> </li>-->
-            <!--                <li> <a href="lyear_pages_rabc.html">设置权限</a> </li>-->
-            <!--                <li> <a href="lyear_pages_add_doc.html">新增文档</a> </li>-->
-            <!--                <li> <a href="lyear_pages_guide.html">表单向导</a> </li>-->
-            <!--                <li> <a href="login.html">登录页面</a> </li>-->
-            <!--                <li> <a href="lyear_pages_error.html">错误页面</a> </li>-->
-            <!--              </ul>-->
-            <!--            </li>-->
-            <!--            <li class="nav-item nav-item-has-subnav">-->
-            <!--              <a href="javascript:void(0)"><i class="mdi mdi-language-javascript"></i> JS 插件</a>-->
-            <!--              <ul class="nav nav-subnav">-->
-            <!--                <li> <a href="lyear_js_datepicker.html">日期选取器</a> </li>-->
-            <!--                <li> <a href="lyear_js_sliders.html">滑块</a> </li>-->
-            <!--                <li> <a href="lyear_js_colorpicker.html">选色器</a> </li>-->
-            <!--                <li> <a href="lyear_js_chartjs.html">Chart.js</a> </li>-->
-            <!--                <li> <a href="lyear_js_jconfirm.html">对话框</a> </li>-->
-            <!--                <li> <a href="lyear_js_tags_input.html">标签插件</a> </li>-->
-            <!--                <li> <a href="lyear_js_notify.html">通知消息</a> </li>-->
-            <!--              </ul>-->
-            <!--            </li>-->
-            <!--            <li class="nav-item nav-item-has-subnav">-->
-            <!--              <a href="javascript:void(0)"><i class="mdi mdi-menu"></i> 多级菜单</a>-->
-            <!--              <ul class="nav nav-subnav">-->
-            <!--                <li> <a href="#!">一级菜单</a> </li>-->
-            <!--                <li class="nav-item nav-item-has-subnav"> -->
-            <!--                  <a href="#!">一级菜单</a>-->
-            <!--                  <ul class="nav nav-subnav">-->
-            <!--                    <li> <a href="#!">二级菜单</a> </li>-->
-            <!--                    <li class="nav-item nav-item-has-subnav"> -->
-            <!--                      <a href="#!">二级菜单</a>-->
-            <!--                      <ul class="nav nav-subnav">-->
-            <!--                        <li> <a href="#!">三级菜单</a> </li>-->
-            <!--                        <li> <a href="#!">三级菜单</a> </li>-->
-            <!--                      </ul>-->
-            <!--                    </li>-->
-            <!--                  </ul>-->
-            <!--                </li>-->
-            <!--                <li> <a href="#!">一级菜单</a> </li>-->
-            <!--              </ul>-->
-            <!--            </li>-->
           </ul>
         </nav>
 
@@ -117,23 +64,28 @@
             <!--            </div>-->
             <!--            <span class="navbar-page-title"> 后台首页 </span>-->
           </div>
+          <div>
+            <ul class="topbar-right">
+              <li class="dropdown dropdown-profile">
+                <a href="javascript:void(0)" data-toggle="dropdown">
+                  <i class="mdi mdi-account"></i><span sec:authentication="name"><span class="caret"></span></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                  <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                  <li class="divider"></li>
+                  <li > <a th:href="@{/logout}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+                </ul>
+              </li>
 
-          <ul class="topbar-right">
-            <li class="dropdown dropdown-profile">
-              <a href="javascript:void(0)" data-toggle="dropdown">
-                <i class="mdi mdi-account"></i><span>admin <span class="caret"></span></span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
-                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
-                <li class="divider"></li>
-                <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
-              </ul>
-            </li>
+            </ul>
+          </div>
 
-          </ul>
+
 
         </div>
+
+
       </nav>
 
     </header>
