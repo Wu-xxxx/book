@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>教材管理系统</title>
+  <link rel="icon" href="favicon.ico" type="image/ico">
+  <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
+  <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
+  <meta name="author" content="yinqi">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <aside class="lyear-layout-sidebar">
+
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a th:href="@{/index}" ><div style="height: 68px;width: 240px"><h4 style="line-height: 68px"> 教材管理系统</h4></div></a>
+      </div>
+      <div th:replace="common::sidebar"></div>
+
+    </aside>
+    <!--End 左侧导航-->
+
+    <!--头部信息-->
+    <header class="lyear-layout-header">
+
+      <nav class="navbar navbar-default">
+        <div class="topbar">
+
+          <div class="topbar-left">
+
+          </div>
+
+          <ul class="topbar-right">
+            <li class="dropdown dropdown-profile">
+              <a href="javascript:void(0)" data-toggle="dropdown">
+                <i class="mdi mdi-account"></i><span>admin <span class="caret"></span></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                <li class="divider"></li>
+                <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+              </ul>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+
+    </header>
+    <!--End 头部信息-->
+
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+
+      <div class="container-fluid">
+
+
+          <div class="row">
+              <h4 style="margin-left: 10px">班级管理</h4>
+              <div class="col-md-12">
+                  <div class="col-lg-3 col-md-3">
+                      <div class="form-inline">
+                          <table>
+                              <tr>
+                                  <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">班级ID：</label></td>
+                                  <td>
+                                      <input id="classId" class="form-control input-default" style="width: 150px"/>
+                                  </td>
+                                  <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">班级编号：</label></td>
+                                  <td>
+                                      <input id="classNum" class="form-control input-default" style="width: 150px"/>
+                                  </td>
+                                  <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">班级名称：</label></td>
+                                  <td>
+                                      <input id="className" class="form-control input-default" style="width: 150px"/>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
+                      <button type="button" class="btn btn-warning" id="showchangeModal">修 改</button>
+                      <button type="button" class="btn btn-primary" id="search">查 询</button>
+                  </div>
+
+              </div>
+
+          </div>
+
+
+          <hr style="color: black;"/>
+          <div class="row" style="margin-left: 10px;margin-right: 10px">
+              <table class="table table-striped" id="classTable" >
+              </table>
+          </div>
+
+
+      </div>
+
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<script th:src="@{/js/bootstrap-table.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
+<!--图表插件-->
+<script type="text/javascript" src="js/Chart.js"></script>
+<script type="text/javascript">
+  $(function () {
+      classTable()
+      function classTable() {
+          $("#classTable").bootstrapTable('destroy');
+          $('#classTable').bootstrapTable({
+              //method: "post",
+              //cache: false,
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              dataType: "json",
+              editable: true,//开启编辑模式
+              clickToSelect: true,
+              // onlyInfoPagination:false,
+              // pageNumber : 1, //初始化加载第一页
+              // pagination : true,//是否分页
+              // sidePagination : 'client',//server:服务器端分页|client：前端分页
+              // paginationPreText: '上一页',
+              // paginationNextText: '下一页',
+              // pageSize : 15,//单页记录数
+              // pageList : [ 5, 10, 15],//可选择单页记录数
+              columns: [
+                  [
+                      {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                              return index+1;
+                          }},
+                      {field: "classId", edit: false, title: "学院ID", align: "center"},
+                      {field: "classNum", edit: false, title: "学院编号", align: "center"},
+                      {field: "className", edit: false, title: "学院名称", align: "center"},
+                      {field: "collegeName", edit: false, title: "所属学院", align: "center"},
+                  ]
+              ],
+              data:[{
+                  serialNumber:1,
+                  classNum:"2",
+                  collegeName:"机械"
+              },{
+                  serialNumber:1,
+                  classNum:"2",
+                  collegeName:"机械"
+              }]
+          });
+          $('#classTable').bootstrapTable('hideLoading');
+      }
+  })
+</script>
+</body>
+</html>
