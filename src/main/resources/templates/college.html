@@ -88,7 +88,7 @@
               </div>
             </div>
             <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
-              <button type="button" class="btn btn-warning" id="showchangeModal">修 改</button>
+              <button type="button" class="btn btn-warning" id="addCollege">添 加</button>
               <button type="button" class="btn btn-primary" id="search">查 询</button>
             </div>
 
@@ -108,7 +108,31 @@
     <!--End 页面主要内容-->
   </div>
 </div>
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          模态框（Modal）标题
+        </h4>
+      </div>
+      <div class="modal-body">
+        按下 ESC 按钮退出。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-primary">
+          提交更改
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
@@ -121,8 +145,20 @@
 <script type="text/javascript">
   $(function () {
     console.log("=====")
-    collegeTbale()
-    function collegeTbale() {
+    $.ajax({
+      url:'/college/listAll',
+      method: "get",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+        collegeTbale(data)
+      }
+    });
+    $("#addCollege").click(function () {
+      $("#myModal").modal('show');
+    })
+    function collegeTbale(data) {
       $("#collegeTable").bootstrapTable('destroy');
       $('#collegeTable').bootstrapTable({
         //method: "post",
@@ -144,21 +180,55 @@
             {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
                 return index+1;
               }},
-            {field: "collegeId", edit: false, title: "学院ID", align: "center"},
-            {field: "collegeNum", edit: false, title: "学院编号", align: "center"},
-            {field: "collegeName", edit: false, title: "学院名称", align: "center"},
+            {field: "clgId", edit: false, title: "学院ID", align: "center"},
+            {field: "clgNum", edit: false, title: "学院编号", align: "center"},
+            {field: "clgName", edit: false, title: "学院名称", align: "center"},
+            {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
           ]
         ],
-        data:[{
-          serialNumber:1,
-          warnType:"2"
-        },{
-          serialNumber:1,
-          warnType:"2"
-        }]
+        data:data,
       });
       $('#collegeTable').bootstrapTable('hideLoading');
     }
+    function operateFormatter(value, row, index) {
+      return [
+        '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
+        '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete"></span></button>'
+      ].join('');
+    }
+    window.operateEvents = {
+      'click .RoleOfhandle': function (e, value, row, index) {
+        $("#userName-modal").val(row.userName);
+        $("#fullName-modal").val(row.fullName);
+        $("#department-modal").val(row.department);
+        $("#phone-modal").val(row.phone);
+        $("#role-modal").val(row.role);
+        $("#id-modal").val(row.id);
+        $("#myModal").modal('show');
+      },
+      'click .RoleOfdelete': function (e, value, row, index) {
+        console.log(row.id)
+        $("#warnModal").modal('show');
+        $("#warnDetail").html("是否确认删除用户："+row.fullName)
+        $("#employeeDelete").click(function () {
+          $.ajax({
+            url:'/employee/deleteById',
+            method: "delete",
+            data:{id:row.id},
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            clickToSelect: true,
+            complete:function () {
+              $("#warnModal").modal('hide');
+              getAllEmployeeList();
+            }
+          });
+        })
+
+        $('#empolyeeTable').bootstrapTable('refresh');
+
+
+      }
+    };
   })
 </script>
 </body>
