@@ -19,7 +19,7 @@
 
     <update id="updateCollege">
         UPDATE `book`.`college`
-         SET  `clgNum` = #{clgNum}, `clgName` = #{clgName}
+         SET `clgId` =#{clgId}, `clgNum` = #{clgNum}, `clgName` = #{clgName}
          WHERE `clgId` = #{clgId};
     </update>
 
