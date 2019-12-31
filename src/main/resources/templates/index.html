@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>教材管理系统</title>
   <link rel="icon" href="favicon.ico" type="image/ico">
-  <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
-  <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
-  <meta name="author" content="yinqi">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/materialdesignicons.min.css" rel="stylesheet">
   <link href="css/style.min.css" rel="stylesheet">
@@ -22,7 +19,7 @@
 
       <!-- logo -->
       <div id="logo" class="sidebar-header">
-        <a th:href="@{/index}" ><div style="height: 68px;width: 240px"><h4 style="line-height: 68px">教材管理系统</h4></div></a>
+        <a th:href="@{/index}" ><div style="height: 68px;width: 240px"><h4 style="line-height: 68px"> <i class="mdi mdi-city"></i>教材管理系统</h4></div></a>
       </div>
       <div class="lyear-layout-sidebar-scroll">
 
@@ -35,9 +32,9 @@
               <a href="javascript:void(0)"><i class="mdi mdi-settings"></i> 系统管理</a>
               <ul class="nav nav-subnav">
 
-                <li> <a th:href="@{/college}"> 学院管理</a></li>
-                <li> <a th:href="@{/class}">班级管理</a> </li>
-                <li> <a th:href="@{/course}">课程管理</a> </li>
+                <li> <a th:href="@{/college}"><i class="mdi mdi-school"></i> 学院管理</a></li>
+                <li> <a th:href="@{/class}"><i class="mdi mdi-group"></i>班级管理</a> </li>
+                <li> <a th:href="@{/course}"><i class="mdi mdi-layers"></i>课程管理</a> </li>
                 <li> <a th:href="@{/common}">教材管理</a> </li>
                 <li> <a href="lyear_ui_icons.html"> 用户管理</a> </li>
               </ul>

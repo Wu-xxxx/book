@@ -34,6 +34,26 @@ public class PageController {
         System.out.println(classMapper.getAllClass());
         return "login";
     }
+    @RequestMapping("/college")
+    public String college(){
+        return "college";
+    }
+    @RequestMapping("/class")
+    public String classmgmt(){
+        return "class";
+    }
+    @RequestMapping("/bookadmin")
+    public String bookadmin(){
+        return "bookadmin";
+    }
+    @RequestMapping("/course")
+    public String course(){
+        return "course";
+    }
+    @RequestMapping("/user")
+    public String user(){
+        return "usermgmt";
+    }
 
 
 }
