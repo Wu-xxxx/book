@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -117,17 +116,28 @@
                 aria-hidden="true">×
         </button>
         <h4 class="modal-title" id="myModalLabel">
-          模态框（Modal）标题
+          添加学院
         </h4>
       </div>
       <div class="modal-body">
+        <form class="form-inline centered" action="/college/add" id="add" method="post">
+          <div class="form-group" style="margin-top: 7px;">
+            <label style="width: 120px">学院编号：</label>
+            <input type="text" class="form-control" name="clgNum" id="addNum" style="width:220px "/>
+          </div>
+          <div class="form-group" style="margin-top: 7px;">
+            <label style="width: 120px">学院名称：</label>
+            <input type="text" class="form-control" name="clgName" id="addName" style="width:220px "/>
+          </div>
+          <br />
+        </form>
         按下 ESC 按钮退出。
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default"
                 data-dismiss="modal">关闭
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" id="addbtn">
           提交更改
         </button>
       </div>
@@ -156,6 +166,8 @@
         collegeTbale(data)
       }
     });
+
+
     $("#addCollege").click(function () {
       $("#myModal").modal('show');
     })
@@ -168,6 +180,13 @@
         dataType: "json",
         editable: true,//开启编辑模式
         clickToSelect: true,
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
         // onlyInfoPagination:false,
         // pageNumber : 1, //初始化加载第一页
         // pagination : true,//是否分页
@@ -231,6 +250,25 @@
       }
     };
   })
+
+  $("#addbtn").click(function () {
+    var clgNum =document.getElementById("addNum").value;
+    var clgName=document.getElementById("addName").value;
+    $.ajax({
+      url:"/college/add",
+      method:"post",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      data:{clgNum:clgNum,clgName:clgName},
+      dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+        $("#addNum").val("");
+        $("#addName").val("");
+        $("#myModal").modal('hide');
+      }
+    })
+  })
+
 </script>
 </body>
 </html>

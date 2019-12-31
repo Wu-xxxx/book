@@ -22,9 +22,9 @@
 
 
     <update id="updateClass">
-        UPDATE `book`.`cls`
-         SET `clsNum` = #{clsNum}, `clsName` = #{clsName}, `collegeId` = #{collegeId},
-         WHERE `clsId` = #{clsId};
+        UPDATE book.cls
+         SET clsNum = #{clsNum}, clsName = #{clsName}, collegeId = #{collegeId},
+         WHERE clsId = #{clsId};
     </update>
 
     <delete id="deleteClassById">

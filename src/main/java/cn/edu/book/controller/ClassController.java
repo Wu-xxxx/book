@@ -17,6 +17,7 @@ import java.util.List;
 public class ClassController {
     @Autowired
     private ClassMapper classMapper;
+
     @RequestMapping("/listAll")
     public String listAll(){
         List<Class> list = classMapper.getAllClass();

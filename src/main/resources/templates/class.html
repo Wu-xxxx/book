@@ -141,14 +141,13 @@
               dataType: "json",
               editable: true,//开启编辑模式
               clickToSelect: true,
-              // onlyInfoPagination:false,
-              // pageNumber : 1, //初始化加载第一页
-              // pagination : true,//是否分页
-              // sidePagination : 'client',//server:服务器端分页|client：前端分页
-              // paginationPreText: '上一页',
-              // paginationNextText: '下一页',
-              // pageSize : 15,//单页记录数
-              // pageList : [ 5, 10, 15],//可选择单页记录数
+              //分页操作
+              pageNumber:1,
+              pagination:true,
+              sidePagination : 'client',
+              pageSize : 5,
+              showRefresh : true,//刷新按钮
+              pageList : [ 5, 10, 15],//可选择单页记录数
               columns: [
                   [
                       {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
