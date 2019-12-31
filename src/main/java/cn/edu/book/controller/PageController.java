@@ -1,5 +1,6 @@
 package cn.edu.book.controller;
 
+import cn.edu.book.mapper.ClassMapper;
 import cn.edu.book.mapper.CollegeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class PageController {
     @Autowired
     CollegeMapper collegeMapper;
 
+    @Autowired
+    ClassMapper classMapper;
+
     @RequestMapping("/index")
     public String index(){
         return "index";
@@ -27,6 +31,7 @@ public class PageController {
         }
 
         System.out.println(collegeMapper.getAllCollege());
+        System.out.println(classMapper.getAllClass());
         return "login";
     }
 

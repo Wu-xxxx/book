@@ -1,5 +1,6 @@
 package cn.edu.book.model;
 
+
 public class College {
 //学院id
     public Integer clgId;
@@ -53,4 +54,5 @@ public class College {
                 ", clgName='" + clgName + '\'' +
                 '}';
     }
+
 }

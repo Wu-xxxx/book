@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.book.mapper.ClassMapper">
+    <!--联表查询-->
+    <select id="getClassById" resultType="java.util.Map">
+        select *from cls s
+        left join college g on  s.collegeId=g.clgId
+        where clsId =#{clsId}
+    </select>
+
+    <!--联表查询-->
+    <select id="getAllClass" resultType="java.util.Map">
+        select *from cls s
+        left join college g on s.collegeId=g.clgId
+    </select>
+
+    <insert id="addClass">
+        insert into cls(clsId,clsNum,clsName,collegeId) values(null ,#{clsNum},#{clsName},#{collegeId})
+    </insert>
+
+
+    <update id="updateClass">
+        UPDATE `book`.`cls`
+         SET `clsNum` = #{clsNum}, `clsName` = #{clsName}, `collegeId` = #{collegeId},
+         WHERE `clsId` = #{clsId};
+    </update>
+
+    <delete id="deleteClassById">
+        delete from class where clsId=#{clsId}
+    </delete>
+</mapper>
