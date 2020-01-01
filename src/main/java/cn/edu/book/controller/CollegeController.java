@@ -46,22 +46,34 @@ public class CollegeController {
        }
    }
 
+//   可变条件查询
    @RequestMapping("/query")
    @ResponseBody
    public String getCollege(College college) {
-      if ((college.clgName == null || college.clgName == "")&& (college.clgNum == null|| college.clgNum == "")&&(college.clgId==null)) {
-         System.out.println(college);
-         System.out.println("查询所有");
-         List<College> allCollege = collegeMapper.getAllCollege();
-         String str=JSON.toJSONString(allCollege);
-         return str;
-      } else {
-         System.out.println(college);
-         College college1 = collegeMapper.getCollege(college);
-         String str = JSON.toJSONString(college1);
-         return str;
-      }
+       List<College> college1 = collegeMapper.getCollege(college);
+       System.out.println(college1);
+       String str=JSON.toJSONString(college1);
+       return str;
    }
 
+    // 更新，编辑
+    @RequestMapping("/edit")
+    @ResponseBody
+    public String editCollege(College college) {
+        collegeMapper.updateCollege(college);
+        String s="更新成功!";
+        String str = JSON.toJSONString(s);
+        return str;
+    }
+
+    // 删除
+    @RequestMapping("/deleteById")
+    @ResponseBody
+    public String deleteCollege(Integer clgId) {
+        collegeMapper.deleteCollegeById(clgId);
+        String s="删除成功成功!";
+        String str = JSON.toJSONString(s);
+        return str;
+    }
 
 }

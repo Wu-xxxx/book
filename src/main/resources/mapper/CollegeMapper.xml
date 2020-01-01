@@ -12,10 +12,18 @@
         select *from college
     </select>
 
-
+<!--判断条件为空查询-->
     <select id="getCollege" resultType="cn.edu.book.model.College">
-        select *from college
-        where clgId =#{clgId} and clgName=#{clgName} and clgNum=#{clgNum}
+        select *from college where 1=1
+      <if test="clgId !=null and clgId !=''">
+          and clgId= #{clgId}
+      </if>
+      <if test="clgName !=null and clgName !=''">
+          and  clgName=#{clgName}
+      </if>
+      <if test="clgNum !=null and clgNum !=''">
+          and  clgNum=#{clgNum}
+      </if>
     </select>
 
 

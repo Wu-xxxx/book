@@ -13,7 +13,7 @@ import java.util.List;
 public interface CollegeMapper {
   College getCollegeById(Integer clgId);
 
-  College getCollege(College college);
+  List<College> getCollege(College college);
 
   List<College> getAllCollege();
 
