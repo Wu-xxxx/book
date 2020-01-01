@@ -24,4 +24,12 @@ public class ClassController {
         String str = JSON.toJSONString(list);
         return str;
     }
+
+
+    @RequestMapping("/query")
+    public String getquery(Class class1){
+        List<Class> aClass = classMapper.getClass(class1);
+        String str = JSON.toJSONString(aClass);
+        return str;
+    }
 }

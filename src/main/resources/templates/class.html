@@ -89,7 +89,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
-                      <button type="button" class="btn btn-warning" id="showchangeModal">修 改</button>
+                      <button type="button" class="btn btn-warning" id="showchangeModal">添 加</button>
                       <button type="button" class="btn btn-primary" id="search">查 询</button>
                   </div>
 
@@ -163,6 +163,27 @@
           });
           $('#classTable').bootstrapTable('hideLoading');
       }
+
+
+
+
+      //查询学院
+      $("#search").click(function () {
+          var clsId =document.getElementById("classId").value;
+          var clsNum=document.getElementById("classNum").value;
+          var clsName=document.getElementById("className").value;
+          $.ajax({
+              url:"/class/query",
+              method:"post",
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              data:{clsId:clsId,clsNum:clsNum,clsName:clsName},
+              dataType: "json",
+              clickToSelect: true,
+              success:function (data) {
+                  classTable(data);
+              }
+          })
+      })
   })
 </script>
 </body>

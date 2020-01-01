@@ -11,6 +11,22 @@
     </select>
 
     <!--联表查询-->
+    <!--判断条件是否为空-->
+    <select id="getClass" resultType="java.util.Map">
+        select *from cls s
+        left join college g on  s.collegeId=g.clgId where 1=1
+        <if test="clsId !=null and clsId !=''">
+            and clsId= #{clsId}
+        </if>
+        <if test="clsName !=null and clsName !=''">
+            and  clsName=#{clsName}
+        </if>
+        <if test="clsNum !=null and clsNum !=''">
+            and  clsNum=#{clsNum}
+        </if>
+    </select>
+
+    <!--联表查询-->
     <select id="getAllClass" resultType="java.util.Map">
         select *from cls s
         left join college g on s.collegeId=g.clgId
