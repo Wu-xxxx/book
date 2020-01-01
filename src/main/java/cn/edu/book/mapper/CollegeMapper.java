@@ -2,6 +2,7 @@ package cn.edu.book.mapper;
 
 import cn.edu.book.model.College;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
 @Mapper
 public interface CollegeMapper {
   College getCollegeById(Integer clgId);
+
+  College getCollege(College college);
 
   List<College> getAllCollege();
 

@@ -163,7 +163,7 @@
       dataType: "json",
       clickToSelect: true,
       success:function (data) {
-        collegeTbale(data)
+        collegeTbale(data);
       }
     });
 
@@ -171,6 +171,27 @@
     $("#addCollege").click(function () {
       $("#myModal").modal('show');
     })
+
+
+    //查询学院
+    $("#search").click(function () {
+      var collegeId =document.getElementById("collegeId").value;
+      var collegeNum=document.getElementById("collegeNum").value;
+      var collegeName=document.getElementById("collegeName").value;
+      $.ajax({
+        url:"/college/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{clgId:collegeId,clgNum:collegeNum,clgName:collegeName},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          collegeTbale(data);
+        }
+      })
+    })
+
+
     function collegeTbale(data) {
       $("#collegeTable").bootstrapTable('destroy');
       $('#collegeTable').bootstrapTable({
@@ -210,6 +231,9 @@
       });
       $('#collegeTable').bootstrapTable('hideLoading');
     }
+
+
+
     function operateFormatter(value, row, index) {
       return [
         '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
@@ -251,6 +275,7 @@
     };
   })
 
+  //添加学院
   $("#addbtn").click(function () {
     var clgNum =document.getElementById("addNum").value;
     var clgName=document.getElementById("addName").value;
@@ -262,12 +287,19 @@
       dataType: "json",
       clickToSelect: true,
       success:function (data) {
-        $("#addNum").val("");
-        $("#addName").val("");
-        $("#myModal").modal('hide');
+        if (data==null||data==""){
+          $("#addNum").val("");
+          $("#addName").val("");
+          $("#myModal").modal('hide');
+          window.location.reload();
+        }else {
+          alert(data);
+        }
       }
     })
   })
+
+
 
 </script>
 </body>

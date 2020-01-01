@@ -12,6 +12,13 @@
         select *from college
     </select>
 
+
+    <select id="getCollege" resultType="cn.edu.book.model.College">
+        select *from college
+        where clgId =#{clgId} and clgName=#{clgName} and clgNum=#{clgNum}
+    </select>
+
+
     <insert id="addCollege">
         insert into college(clgId,clgNum,clgName) values(null ,#{clgNum},#{clgName})
     </insert>
