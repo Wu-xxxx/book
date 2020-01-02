@@ -39,11 +39,11 @@
 
     <update id="updateClass">
         UPDATE book.cls
-         SET clsNum = #{clsNum}, clsName = #{clsName}, collegeId = #{collegeId},
+         SET clsNum = #{clsNum}, clsName = #{clsName}, collegeId = #{collegeId}
          WHERE clsId = #{clsId};
     </update>
 
     <delete id="deleteClassById">
-        delete from class where clsId=#{clsId}
+        delete from cls where clsId=#{clsId}
     </delete>
 </mapper>

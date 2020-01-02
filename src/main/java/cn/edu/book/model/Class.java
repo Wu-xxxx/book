@@ -16,7 +16,7 @@ public class Class implements Serializable {
     //班级名称
     private String clsName;
     //学院id,作为外键与college表连接
-    private int collegeId;
+    private Integer collegeId;
     //班级与学院关联,查询班级返回对应学院
     private College college;
 
