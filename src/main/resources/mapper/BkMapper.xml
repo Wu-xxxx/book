@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.book.mapper.BkMapper">
+
+    <!--联表查询-->
+    <!--判断条件是否为空-->
+    <select id="getBk" resultType="java.util.Map">
+        select *from bk where 1=1
+        <if test="bkClassName !=null and bkClassName !=''">
+            and bkClassName like "%"#{bkClassName}"%"
+        </if>
+        <if test="tName !=null and tName !=''">
+            and  tName like "%"#{tName}"%"
+        </if>
+    </select>
+
+    <!--联表查询-->
+    <select id="getAllBk" resultType="java.util.Map">
+        select *from bk
+    </select>
+
+
+    <!--添加教材-->
+    <insert id="addBk">
+        insert into Bk(bkId,tName,bkName,bkAuthor,bkNum,bkClassName,bkNumNow) values(null ,#{tName},#{bkName},#{bkAuthor},#{bkNum},#{bkClassName},#{bkNum})
+    </insert>
+
+
+    <!--更新课程-->
+    <update id="updateBk">
+        UPDATE book.bk
+         SET tName = #{tName}, bkName = #{bkName}, bkAuthor = #{bkAuthor}, bkClassName = #{bkClassName
+         WHERE bkId = #{bkId};
+    </update>
+
+    <!--删除课程-->
+    <delete id="deleteBkById">
+        delete from bk where bkId=#{bkId}
+    </delete>
+
+</mapper>

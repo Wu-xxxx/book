@@ -68,27 +68,107 @@
           <h4 style="margin-left: 10px">教材管理</h4>
           <div class="col-md-12">
             <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a style="font-size: 16px" href="#warnningDetails" data-toggle="tab" >已下发教材</a></li>
-              <li><a style="font-size: 16px" href="#warnningStatistics" data-toggle="tab">应发教材</a></li>
+              <li class="active"><a style="font-size: 16px" href="#warnningDetails" data-toggle="tab" >应发教材</a></li>
+              <li><a style="font-size: 16px" href="#warnningStatistics" data-toggle="tab">已发教材</a></li>
             </ul>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-lg-3 col-md-3">
+              <div class="form-inline">
+                <table>
+                  <tr>
+                    <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">班级名称</label></td>
+                    <td>
+                      <input id="bkClassName" class="form-control input-default" style="width: 150px"/>
+                    </td>
+                    <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">老师姓名：</label></td>
+                    <td>
+                      <input id="tName" class="form-control input-default" style="width: 150px"/>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
+              <button type="button" class="btn btn-warning" id="addbook">添 加</button>
+              <button type="button" class="btn btn-primary" id="search">查 询</button>
+            </div>
+
+          </div>
+
+        </div>
         <div id="myTabContent" class="tab-content box">
-          <div class="tab-pane fade in active" id="warnningDetails">
+          <div class="tab-pane fade in active" id="book">
             <div class="row">
-              <table class="table table-striped" id="warnning" >
+              <table class="table table-striped" id="book1" >
               </table>
             </div>
           </div>
           <div class="tab-pane fade" id="warnningHandleResume">
 
             <div class="row  table-responsive">
-              <table class="table table-striped" id="warnningReusme" >
+              <table class="table table-striped" id="book2" >
               </table>
             </div>
           </div>
         </div>
 
+
+
+
+
+
+        <!--add-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  添加教材
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">教材名称：</label>
+                  <input type="text" class="form-control" name="bkNum" id="addName" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">教材作者：</label>
+                  <input type="text" class="form-control" name="bkName" id="addAuthor" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">使用该教材老师：</label><br/>
+                  <input type="text" class="form-control" name="tName" id="addtName" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">使用该教材班级：</label><br/>
+                  <input type="text" class="form-control" name="clsName" id="addClassName" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">教材总量：</label><br/>
+                  <input type="text" class="form-control" name="bkNum" id="addbkNum" style="width:220px "/>
+                </div>
+                <br />
+                </form>
+                按下 ESC 按钮退出。
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="addbtn">
+                  提交更改
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
       </div>
 
@@ -101,12 +181,126 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
-
+<script th:src="@{/js/bootstrap-table.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
 <!--图表插件-->
 <script type="text/javascript" src="js/Chart.js"></script>
 <script type="text/javascript">
   $(function () {
     console.log("=====")
+    $.ajax({
+      url:'/bkadmin/listAll',
+      method: "get",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+        bkTable(data)
+      }
+    });
+
+
+    function bkTable(data) {
+      $("#book1").bootstrapTable('destroy');
+      $('#book1').bootstrapTable({
+        //method: "post",
+        //cache: false,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        editable: true,//开启编辑模式
+        clickToSelect: true,
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
+        columns: [
+          [
+            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                return index+1;
+              }},
+            {field: "bkId", edit: false, title: "教材id", align: "center"},
+            {field: "bkName", edit: false, title: "教材名称", align: "center"},
+            {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
+            {field: "tName", edit: false, title: "使用该教材老师", align: "center"},
+            {field: "bkClassName", edit: false, title: "使用该教材班级", align: "center"},
+            {field: "bkNum", edit: false, title: "教材总量", align: "center"},
+            {field: "bkNumNow", edit: false, title: "教材当前库存", align: "center"},
+            // {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
+          ]
+        ],
+        data:data,
+      });
+      $('#book1').bootstrapTable('hideLoading');
+    }
+
+
+
+
+
+    $("#addbook").click(function () {
+      $("#myModal").modal('show');
+    })
+
+
+
+
+    //查询学院
+    $("#search").click(function () {
+      var bkClassName =document.getElementById("bkClassName").value;
+      var tName=document.getElementById("tName").value;
+      $.ajax({
+        url:"/bkadmin/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkClassName:bkClassName,tName:tName},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          bkTable(data);
+        }
+      })
+    })
+
+
+
+
+
+
+
+    //添加学院
+    $("#addbtn").click(function () {
+      var bkName =document.getElementById("addName").value;
+      var bkAuthor=document.getElementById("addAuthor").value;
+      var tName=document.getElementById("addtName").value;
+      var bkClassName=document.getElementById("addClassName").value;
+      var bkNum=document.getElementById("addbkNum").value;
+      $.ajax({
+        url:"/bkadmin/add",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkName:bkName,bkAuthor:bkAuthor,tName:tName,bkClassName:bkClassName,bkNum:bkNum},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#addName").val("");
+            $("#addAuthor").val("");
+            $("#addtName").val("");
+            $("#addClassName").val("");
+            $("#addName").val("");
+            $("#addbkNum").modal('hide');
+            window.location.reload();
+          }else {
+            alert(data);
+          }
+        }
+      })
+    })
+
+
   })
 </script>
 </body>
