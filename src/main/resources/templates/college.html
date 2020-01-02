@@ -116,18 +116,94 @@
                 aria-hidden="true">×
         </button>
         <h4 class="modal-title" id="myModalLabel">
-          模态框（Modal）标题
+          添加学院
         </h4>
       </div>
       <div class="modal-body">
+        <form class="form-inline centered" action="/college/add" id="add" method="post">
+          <div class="form-group" style="margin-top: 7px;">
+            <label style="width: 120px">学院编号：</label>
+            <input type="text" class="form-control" name="clgNum" id="addNum" style="width:220px "/>
+          </div>
+          <div class="form-group" style="margin-top: 7px;">
+            <label style="width: 120px">学院名称：</label>
+            <input type="text" class="form-control" name="clgName" id="addName" style="width:220px "/>
+          </div>
+          <br />
+        </form>
         按下 ESC 按钮退出。
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default"
                 data-dismiss="modal">关闭
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" id="addbtn">
           提交更改
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+        <h4 class="modal-title" id="editModalLabel">
+          编辑学院信息
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline centered" action="/college/edit" id="edit" method="post">
+          <div class="form-group" style="margin-top: 7px;">
+            <input type="hidden" class="form-control" name="clgId" id="editId" style="width:220px " />
+            <label style="width: 120px">学院编号：</label>
+            <input type="text" class="form-control" name="clgNum" id="editNum" style="width:220px "/>
+          </div>
+          <div class="form-group" style="margin-top: 7px;">
+            <label style="width: 120px">学院名称：</label>
+            <input type="text" class="form-control" name="clgName" id="editName" style="width:220px "/>
+          </div>
+          <br />
+        </form>
+        按下 ESC 按钮退出。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-primary" id="editbtn">
+          提交更改
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--删除提示模态框-->
+<div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+        <h4 class="modal-title" id="warnModalLabel">
+          删除学院信息
+        </h4>
+      </div>
+      <div class="modal-body">
+        <p style="color:red;margin-left: 150px;font-size: large"><span id="warnDetail"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-primary" id="deletbtn">
+          确认
         </button>
       </div>
     </div><!-- /.modal-content -->
@@ -152,13 +228,36 @@
       dataType: "json",
       clickToSelect: true,
       success:function (data) {
-        collegeTbale(data)
+        collegeTable(data);
       }
     });
+
+
     $("#addCollege").click(function () {
       $("#myModal").modal('show');
     })
-    function collegeTbale(data) {
+
+
+    //查询学院
+    $("#search").click(function () {
+      var collegeId =document.getElementById("collegeId").value;
+      var collegeNum=document.getElementById("collegeNum").value;
+      var collegeName=document.getElementById("collegeName").value;
+      $.ajax({
+        url:"/college/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{clgId:collegeId,clgNum:collegeNum,clgName:collegeName},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          collegeTable(data);
+        }
+      })
+    })
+
+
+    function collegeTable(data) {
       $("#collegeTable").bootstrapTable('destroy');
       $('#collegeTable').bootstrapTable({
         //method: "post",
@@ -167,14 +266,13 @@
         dataType: "json",
         editable: true,//开启编辑模式
         clickToSelect: true,
-        // onlyInfoPagination:false,
-        // pageNumber : 1, //初始化加载第一页
-        // pagination : true,//是否分页
-        // sidePagination : 'client',//server:服务器端分页|client：前端分页
-        // paginationPreText: '上一页',
-        // paginationNextText: '下一页',
-        // pageSize : 15,//单页记录数
-        // pageList : [ 5, 10, 15],//可选择单页记录数
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
         columns: [
           [
             {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
@@ -190,6 +288,9 @@
       });
       $('#collegeTable').bootstrapTable('hideLoading');
     }
+
+
+
     function operateFormatter(value, row, index) {
       return [
         '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
@@ -198,28 +299,24 @@
     }
     window.operateEvents = {
       'click .RoleOfhandle': function (e, value, row, index) {
-        $("#userName-modal").val(row.userName);
-        $("#fullName-modal").val(row.fullName);
-        $("#department-modal").val(row.department);
-        $("#phone-modal").val(row.phone);
-        $("#role-modal").val(row.role);
-        $("#id-modal").val(row.id);
-        $("#myModal").modal('show');
+        $("#editId").val(row.clgId);
+        $("#editNum").val(row.clgNum);
+        $("#editName").val(row.clgName);
+        $("#editModal").modal('show');
       },
       'click .RoleOfdelete': function (e, value, row, index) {
-        console.log(row.id)
         $("#warnModal").modal('show');
-        $("#warnDetail").html("是否确认删除用户："+row.fullName)
-        $("#employeeDelete").click(function () {
+        $("#warnDetail").html("是否确认删除："+row.clgName+"!");
+        $("#deletbtn").click(function () {
           $.ajax({
-            url:'/employee/deleteById',
+            url:'/college/deleteById',
             method: "delete",
-            data:{id:row.id},
+            data:{clgId:row.clgId},
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             clickToSelect: true,
             complete:function () {
               $("#warnModal").modal('hide');
-              getAllEmployeeList();
+              window.location.reload();
             }
           });
         })
@@ -229,7 +326,56 @@
 
       }
     };
+
+
+
+
   })
+
+  //添加学院
+  $("#addbtn").click(function () {
+    var clgNum =document.getElementById("addNum").value;
+    var clgName=document.getElementById("addName").value;
+    $.ajax({
+      url:"/college/add",
+      method:"post",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      data:{clgNum:clgNum,clgName:clgName},
+      dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+        if (data==null||data==""){
+          $("#addNum").val("");
+          $("#addName").val("");
+          $("#myModal").modal('hide');
+          window.location.reload();
+        }else {
+          alert(data);
+        }
+      }
+    })
+  })
+
+  //编辑学院
+  $("#editbtn").click(function () {
+    var clgId =document.getElementById("editId").value;
+    var clgNum =document.getElementById("editNum").value;
+    var clgName=document.getElementById("editName").value;
+    $.ajax({
+      url:"/college/edit",
+      method:"post",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      data:{clgId:clgId,clgNum:clgNum,clgName:clgName},
+      dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+          $("#editModal").modal('hide');
+          window.location.reload();
+      }
+    })
+  })
+
+
 </script>
 </body>
 </html>

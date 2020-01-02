@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.book.mapper.CollegeMapper">
+    <select id="getCollegeById" resultType="cn.edu.book.model.College">
+        select *from college where clgId =#{clgId}
+    </select>
+
+
     <select id="getAllCollege" resultType="cn.edu.book.model.College">
-            select *from college;
-        </select>
+        select *from college
+    </select>
 
-    <!--    <select id="getCollegeById" resultType="cn.edu.book.model.College">-->
-    <!--        select *from college where clgId =#{clgId}-->
-    <!--    </select>-->
+<!--判断条件为空查询-->
+    <select id="getCollege" resultType="cn.edu.book.model.College">
+        select *from college where 1=1
+      <if test="clgId !=null and clgId !=''">
+          and clgId= #{clgId}
+      </if>
+      <if test="clgName !=null and clgName !=''">
+          and  clgName=#{clgName}
+      </if>
+      <if test="clgNum !=null and clgNum !=''">
+          and  clgNum=#{clgNum}
+      </if>
+    </select>
 
 
-    <!--    <select id="getAllCollege" resultType="cn.edu.book.model.College">-->
-    <!--        select *from college-->
-    <!--    </select>-->
-
-    <!--    <insert id="addCollege">-->
-    <!--        insert into college(clgId,clgNum,clgName) values(null ,#{clgNum},#{clgName})-->
-    <!--    </insert>-->
+    <insert id="addCollege">
+        insert into college(clgId,clgNum,clgName) values(null ,#{clgNum},#{clgName})
+    </insert>
 
 
-    <!--    <update id="updateCollege">-->
-    <!--        UPDATE `book`.`college`-->
-    <!--         SET `clgId` =#{clgId}, `clgNum` = #{clgNum}, `clgName` = #{clgName}-->
-    <!--         WHERE `clgId` = #{clgId};-->
-    <!--    </update>-->
+    <update id="updateCollege">
+        UPDATE `book`.`college`
+         SET  `clgNum` = #{clgNum}, `clgName` = #{clgName}
+         WHERE `clgId` = #{clgId};
+    </update>
 
-    <!--    <delete id="deleteCollegeById">-->
-    <!--        delete from college where clgId=#{clgId}-->
-    <!--    </delete>-->
+    <delete id="deleteCollegeById">
+        delete from college where clgId=#{clgId}
+    </delete>
 </mapper>

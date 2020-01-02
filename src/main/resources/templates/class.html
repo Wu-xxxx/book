@@ -89,13 +89,15 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
-                      <button type="button" class="btn btn-warning" id="showchangeModal">修 改</button>
+                      <button type="button" class="btn btn-warning" id="addclass">添 加</button>
                       <button type="button" class="btn btn-primary" id="search">查 询</button>
                   </div>
 
               </div>
 
           </div>
+
+
 
 
           <hr style="color: black;"/>
@@ -105,9 +107,132 @@
           </div>
 
 
+
+
+
+
       </div>
 
     </main>
+
+
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"
+                              aria-hidden="true">×
+                      </button>
+                      <h4 class="modal-title" id="myModalLabel">
+                          添加班级
+                      </h4>
+                  </div>
+                  <div class="modal-body">
+                          <div class="form-group" style="margin-top: 7px;">
+                              <label style="width: 120px">班级编号：</label>
+                              <input type="text" class="form-control" name="clsNum" id="addNum" style="width:220px "/>
+                          </div>
+                          <div class="form-group" style="margin-top: 7px;">
+                              <label style="width: 120px">班级名称：</label>
+                              <input type="text" class="form-control" name="clsName" id="addName" style="width:220px "/>
+                          </div>
+                          <div class="form-group" style="margin-top: 7px;">
+                              <label style="width: 120px">所属学院：</label><br/>
+                              <select class="selectpicker" id="collegelist" style="width: 220px;height: 40px;">
+                              </select>
+                              <!--<input type="text" class="form-control" name="clgName" id="college" style="width:220px "/>-->
+                          </div>
+                          <br />
+                      </form>
+                      按下 ESC 按钮退出。
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default"
+                              data-dismiss="modal">关闭
+                      </button>
+                      <button type="button" class="btn btn-primary" id="addbtn">
+                          提交更改
+                      </button>
+                  </div>
+              </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <!--修改学院信息-->
+      <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"
+                              aria-hidden="true">×
+                      </button>
+                      <h4 class="modal-title" id="editModalLabel">
+                          编辑班级信息
+                      </h4>
+                  </div>
+                  <div class="modal-body">
+                      <form class="form-inline centered" action="/college/edit" id="edit" method="post">
+                          <div class="form-group" style="margin-top: 7px;">
+                              <input type="hidden" class="form-control" name="clgId" id="editId" style="width:220px " />
+                              <label style="width: 120px">班级编号：</label>
+                              <input type="text" class="form-control" name="clsNum" id="editNum" style="width:220px "/>
+                          </div>
+                          <div class="form-group" style="margin-top: 7px;">
+                              <label style="width: 120px">班级名称：</label>
+                              <input type="text" class="form-control" name="clsName" id="editName" style="width:220px "/>
+                          </div>
+                          <br/>
+                          <div class="form-group" style="margin-top: 7px;">
+                              <label style="width: 120px">所属学院：</label>
+                              <select class="selcetpicker" id="editCollege" style="width: 220px;height: 40px;">
+                              </select>
+                          </div>
+                          <br />
+                          <br />
+                      </form>
+                      按下 ESC 按钮退出。
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default"
+                              data-dismiss="modal">关闭
+                      </button>
+                      <button type="button" class="btn btn-primary" id="editbtn">
+                          提交更改
+                      </button>
+                  </div>
+              </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+      <!--删除提示模态框-->
+      <div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"
+                              aria-hidden="true">×
+                      </button>
+                      <h4 class="modal-title" id="warnModalLabel">
+                          删除学院信息
+                      </h4>
+                  </div>
+                  <div class="modal-body">
+                      <p style="color:red;margin-left: 150px;font-size: large"><span id="warnDetail"></span></p>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default"
+                              data-dismiss="modal">关闭
+                      </button>
+                      <button type="button" class="btn btn-primary" id="deletbtn">
+                          确认
+                      </button>
+                  </div>
+              </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
     <!--End 页面主要内容-->
   </div>
 </div>
@@ -132,6 +257,28 @@
               classTable(data)
           }
       });
+
+
+      $("#addclass").click(function () {
+          $("#myModal").modal('show');
+          $.ajax({
+              url:"/college/listAll",
+              method: "get",
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              dataType: "json",
+              clickToSelect: true,
+              success:function (data) {
+                  var selectObj=document.getElementById("collegelist");
+                  selectObj.options.length=0;
+                  var a=data.length;
+                  for(var i=0;i<a;i++){
+                      //new option(text,value)
+                      selectObj.add(new Option(data[i].clgName,data[i].clgId))
+                  };
+              }
+          })
+      })
+
       function classTable(data) {
           $("#classTable").bootstrapTable('destroy');
           $('#classTable').bootstrapTable({
@@ -141,14 +288,13 @@
               dataType: "json",
               editable: true,//开启编辑模式
               clickToSelect: true,
-              // onlyInfoPagination:false,
-              // pageNumber : 1, //初始化加载第一页
-              // pagination : true,//是否分页
-              // sidePagination : 'client',//server:服务器端分页|client：前端分页
-              // paginationPreText: '上一页',
-              // paginationNextText: '下一页',
-              // pageSize : 15,//单页记录数
-              // pageList : [ 5, 10, 15],//可选择单页记录数
+              //分页操作
+              pageNumber:1,
+              pagination:true,
+              sidePagination : 'client',
+              pageSize : 5,
+              showRefresh : true,//刷新按钮
+              pageList : [ 5, 10, 15],//可选择单页记录数
               columns: [
                   [
                       {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
@@ -158,12 +304,145 @@
                       {field: "clsNum", edit: false, title: "班级编号", align: "center"},
                       {field: "clsName", edit: false, title: "班级名称", align: "center"},
                       {field: "clgName", edit: false, title: "所属学院", align: "center"},
+                      {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
                   ]
               ],
               data:data,
           });
           $('#classTable').bootstrapTable('hideLoading');
       }
+
+
+
+
+      //查询学院
+      $("#search").click(function () {
+          var clsId =document.getElementById("classId").value;
+          var clsNum=document.getElementById("classNum").value;
+          var clsName=document.getElementById("className").value;
+          $.ajax({
+              url:"/class/query",
+              method:"post",
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              data:{clsId:clsId,clsNum:clsNum,clsName:clsName},
+              dataType: "json",
+              clickToSelect: true,
+              success:function (data) {
+                  classTable(data);
+              }
+          })
+      })
+
+
+
+
+
+      //添加学院
+      $("#addbtn").click(function () {
+          var clsNum =document.getElementById("addNum").value;
+          var clsName=document.getElementById("addName").value;
+          var collegeId=document.getElementById("collegelist").value;
+          $.ajax({
+              url:"/class/add",
+              method:"post",
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              data:{clsNum:clsNum,clsName:clsName,collegeId:collegeId},
+              dataType: "json",
+              clickToSelect: true,
+              success:function (data) {
+                  if (data==null||data==""){
+                      $("#addNum").val("");
+                      $("#addName").val("");
+                      $("#myModal").modal('hide');
+                      window.location.reload();
+                  }else {
+                      alert(data);
+                  }
+              }
+          })
+      })
+
+
+      //列表添加编辑，删除按钮
+      function operateFormatter(value, row, index) {
+          return [
+              '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
+              '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete"></span></button>'
+          ].join('');
+      }
+      window.operateEvents = {
+          'click .RoleOfhandle': function (e, value, row, index) {
+              $("#editId").val(row.clsId);
+              $("#editNum").val(row.clsNum);
+              $("#editName").val(row.clsName);
+              $.ajax({
+                  url:"/college/listAll",
+                  method: "get",
+                  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                  dataType: "json",
+                  clickToSelect: true,
+                  success:function (data) {
+                      var selectObj=document.getElementById("editCollege");
+                      selectObj.options.length=0;
+                      var a=data.length;
+                      for(var i=0;i<a;i++){
+                          //new option(text,value)
+                          if (row.clgName==data[i].clgName){
+                              selectObj.add(new Option(data[i].clgName,data[i].clgId,true,true))
+                          } else {
+                              selectObj.add(new Option(data[i].clgName,data[i].clgId))
+                          }
+                      };
+                  }
+              })
+              $("#editModal").modal('show');
+          },
+          'click .RoleOfdelete': function (e, value, row, index) {
+              $("#warnModal").modal('show');
+              $("#warnDetail").html("是否确认删除："+row.clsName   +"!");
+              $("#deletbtn").click(function () {
+                  $.ajax({
+                      url:'/class/deleteById',
+                      method: "delete",
+                      data:{clsId:row.clsId},
+                      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                      clickToSelect: true,
+                      complete:function () {
+                          $("#warnModal").modal('hide');
+                          window.location.reload();
+                      }
+                  });
+              })
+
+              $('#empolyeeTable').bootstrapTable('refresh');
+
+
+          }
+      };
+
+
+
+      //编辑学院
+      $("#editbtn").click(function () {
+          var clsId =document.getElementById("editId").value;
+          var clsNum =document.getElementById("editNum").value;
+          var clsName=document.getElementById("editName").value;
+          var collegeId=document.getElementById("editCollege").value;
+          $.ajax({
+              url:"/class/edit",
+              method:"post",
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              data:{clsId:clsId,clsNum:clsNum,clsName:clsName,collegeId:collegeId},
+              dataType: "json",
+              clickToSelect: true,
+              success:function (data) {
+                  $("#editModal").modal('hide');
+                  window.location.reload();
+              }
+          })
+      })
+
+
   })
 </script>
 </body>

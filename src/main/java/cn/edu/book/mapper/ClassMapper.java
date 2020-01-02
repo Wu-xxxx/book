@@ -11,6 +11,9 @@ public interface ClassMapper {
 
     Class getClassById(Integer clsId);
 
+
+    List<Class> getClass(Class class1);
+
     List<Class> getAllClass();
 
     void addClass(Class class1);
