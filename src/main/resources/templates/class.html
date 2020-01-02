@@ -376,11 +376,12 @@
               $("#deletbtn").click(function () {
                   $.ajax({
                       url:'/class/deleteById',
-                      method: "delete",
+                      method: "post",
+                      dataType: "json",
                       data:{clsId:row.clsId},
                       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                       clickToSelect: true,
-                      complete:function () {
+                      success:function () {
                           $("#warnModal").modal('hide');
                           window.location.reload();
                       }

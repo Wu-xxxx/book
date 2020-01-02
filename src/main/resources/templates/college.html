@@ -287,7 +287,8 @@
         $("#deletbtn").click(function () {
           $.ajax({
             url:'/college/deleteById',
-            method: "delete",
+            method: "post",
+            dataType: "json",
             data:{clgId:row.clgId},
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             clickToSelect: true,

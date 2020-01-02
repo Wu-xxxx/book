@@ -4,13 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * Created by Wu on 2020/1/2.
  */
 @Getter
 @Setter
 @ToString
-public class User {
+public class User implements Serializable {
     private int id;
     private String uId;
     private String name;

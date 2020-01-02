@@ -13,6 +13,16 @@
   <link href="css/style.min.css" rel="stylesheet">
 </head>
 
+<style>
+
+  option{
+
+    text-align:center;
+
+  }
+</style>
+
+
 <body>
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
@@ -37,31 +47,172 @@
 
       <div class="container-fluid">
 
+
         <div class="row">
           <h4 style="margin-left: 10px">课程管理</h4>
           <div class="col-md-12">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a style="font-size: 16px" href="#warnningDetails" data-toggle="tab" >已下发教材</a></li>
-              <li><a style="font-size: 16px" href="#warnningStatistics" data-toggle="tab">应发教材</a></li>
-            </ul>
-          </div>
-        </div>
-        <div id="myTabContent" class="tab-content box">
-          <div class="tab-pane fade in active" id="warnningDetails">
-            <div class="row">
-              <table class="table table-striped" id="warnning" >
-              </table>
+            <div class="col-lg-3 col-md-3">
+              <div class="form-inline">
+                <table>
+                  <tr>
+                    <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">课程ID：</label></td>
+                    <td>
+                      <input id="courseId" class="form-control input-default" style="width: 150px"/>
+                    </td>
+                    <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">课程编号：</label></td>
+                    <td>
+                      <input id="courseNum" class="form-control input-default" style="width: 150px"/>
+                    </td>
+                    <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">课程名称：</label></td>
+                    <td>
+                      <input id="courseName" class="form-control input-default" style="width: 150px"/>
+                    </td>
+                    <td><label style="width: 110px;margin-left:50px;margin-bottom: 0px;font-size: 15px">所属班级名称：</label></td>
+                    <td>
+                      <select class="selectpicker" id="classId" style="width: 150px;height: 40px;text-align: center;text-align-last: center;">
+                      </select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
-          </div>
-          <div class="tab-pane fade" id="warnningHandleResume">
-
-            <div class="row  table-responsive">
-              <table class="table table-striped" id="warnningReusme" >
-              </table>
+            <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
+              <button type="button" class="btn btn-warning" id="addcourse">添 加</button>
+              <button type="button" class="btn btn-primary" id="search">查 询</button>
             </div>
+
           </div>
+
         </div>
 
+
+
+
+        <hr style="color: black;"/>
+        <div class="row" style="margin-left: 10px;margin-right: 10px">
+          <table class="table table-striped" id="courseTable" >
+          </table>
+        </div>
+
+
+
+        <!--增加模态框-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  添加课程
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">课程编号：</label>
+                  <input type="text" class="form-control" name="clsNum" id="addNum" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">课程名称：</label>
+                  <input type="text" class="form-control" name="clsName" id="addName" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 120px">所属班级：</label><br/>
+                  <select class="selectpicker" id="collegelist" style="width: 220px;height: 40px;">
+                  </select>
+                  <!--<input type="text" class="form-control" name="clgName" id="college" style="width:220px "/>-->
+                </div>
+                <br />
+                </form>
+                按下 ESC 按钮退出。
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="addbtn">
+                  提交更改
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        <!--修改课程信息-->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="editModalLabel">
+                  编辑课程信息
+                </h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-inline centered" action="/college/edit" id="edit" method="post">
+                  <div class="form-group" style="margin-top: 7px;">
+                    <input type="hidden" class="form-control" name="courseId" id="editId" style="width:220px " />
+                    <label style="width: 120px">课程编号：</label>
+                    <input type="text" class="form-control" name="courseNum" id="editNum" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 120px">课程名称：</label>
+                    <input type="text" class="form-control" name="courseName" id="editName" style="width:220px "/>
+                  </div>
+                  <br/>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 120px">所属班级：</label>
+                    <select class="selcetpicker" id="editClass" style="width: 220px;height: 40px;">
+                    </select>
+                  </div>
+                  <br />
+                  <br />
+                </form>
+                按下 ESC 按钮退出。
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="editbtn">
+                  提交更改
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+          <!--删除提示模态框-->
+          <div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"
+                                  aria-hidden="true">×
+                          </button>
+                          <h4 class="modal-title" id="warnModalLabel">
+                              删除学院信息
+                          </h4>
+                      </div>
+                      <div class="modal-body">
+                          <p style="color:red;margin-left: 150px;font-size: large"><span id="warnDetail"></span></p>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default"
+                                  data-dismiss="modal">关闭
+                          </button>
+                          <button type="button" class="btn btn-primary" id="deletbtn">
+                              确认
+                          </button>
+                      </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
 
       </div>
 
@@ -74,13 +225,249 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
-
+<script th:src="@{/js/bootstrap-table.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
 <!--图表插件-->
 <script type="text/javascript" src="js/Chart.js"></script>
 <script type="text/javascript">
+
   $(function () {
     console.log("=====")
+    $.ajax({
+      url: '/course/listAll',
+      method: "get",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      dataType: "json",
+      clickToSelect: true,
+      success: function (data) {
+        getClassList();
+        courseTable(data);
+      }
+    })
+
+
+    function getClassList(){
+      $.ajax({
+        url: '/class/listAll',
+        method: "get",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        clickToSelect: true,
+        success: function (data1) {
+          var selectObj=document.getElementById("classId");
+          selectObj.options.length=0;
+          var a=data1.length;
+          selectObj.add(new Option("请选择所属班级",""));
+          for(var i=0;i<a;i++){
+            //new option(text,value)
+            selectObj.add(new Option(data1[i].clsName,data1[i].clsId))
+          };
+        }
+      })
+    }
+
+
+
+    //添加modal
+    $("#addcourse").click(function () {
+      $("#myModal").modal('show');
+      $.ajax({
+        url:"/class/listAll",
+        method: "get",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          var selectObj=document.getElementById("collegelist");
+          selectObj.options.length=0;
+          var a=data.length;
+          for(var i=0;i<a;i++){
+            //new option(text,value)
+            selectObj.add(new Option(data[i].clsName,data[i].clsId))
+          };
+        }
+      })
+    })
+
+
+
+
+
+
+    function courseTable(data) {
+      $("#courseTable").bootstrapTable('destroy');
+      $('#courseTable').bootstrapTable({
+        //method: "post",
+        //cache: false,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        editable: true,//开启编辑模式
+        clickToSelect: true,
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
+        columns: [
+          [
+            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                return index+1;
+              }},
+            {field: "courseId", edit: false, title: "课程ID", align: "center"},
+            {field: "courseNum", edit: false, title: "课程编号", align: "center"},
+            {field: "courseName", edit: false, title: "课程名称", align: "center"},
+            {field: "clsName", edit: false, title: "所属班级", align: "center"},
+            {field: "clgName", edit: false, title: "所属学院", align: "center"},
+            {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
+          ]
+        ],
+        data:data,
+      });
+      $('#courseTable').bootstrapTable('hideLoading');
+    }
+
+
+    //列表添加编辑，删除按钮
+    function operateFormatter(value, row, index) {
+      return [
+        '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
+        '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete"></span></button>'
+      ].join('');
+    }
+    window.operateEvents = {
+      'click .RoleOfhandle': function (e, value, row, index) {
+        $("#editId").val(row.courseId);
+        $("#editNum").val(row.courseNum);
+        $("#editName").val(row.courseName);
+
+        $.ajax({
+          url:"/class/listAll",
+          method: "get",
+          contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+          dataType: "json",
+          clickToSelect: true,
+          success:function (data) {
+            var selectObj=document.getElementById("editClass");
+            selectObj.options.length=0;
+            var a=data.length;
+            for(var i=0;i<a;i++){
+              //new option(text,value)
+              if (row.clsName==data[i].clsName){
+                selectObj.add(new Option(data[i].clsName,data[i].clsId,true,true))
+              } else {
+                selectObj.add(new Option(data[i].clsName,data[i].clsId))
+              }
+            };
+          }
+        })
+        $("#editModal").modal('show');
+      },
+      'click .RoleOfdelete': function (e, value, row, index) {
+        $("#warnModal").modal('show');
+        $("#warnDetail").html("是否确认删除课程："+row.courseName+"!");
+        $("#deletbtn").click(function () {
+          $.ajax({
+            url:'/course/deleteById',
+            method: "post",
+            dataType: "json",
+            data:{courseId:row.courseId},
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            clickToSelect: true,
+            success:function () {
+              $("#warnModal").modal('hide');
+              window.location.reload();
+            }
+          });
+        })
+
+        $('#courseTable').bootstrapTable('refresh');
+
+
+      }
+    };
+
+
+
+
+    //查询学院
+    $("#search").click(function () {
+      var courseId =document.getElementById("courseId").value;
+      var courseNum=document.getElementById("courseNum").value;
+      var courseName=document.getElementById("courseName").value;
+      var classId=document.getElementById("classId").value;
+      $.ajax({
+        url:"/course/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{courseId:courseId,courseNum:courseNum,courseName:courseName,classId:classId},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          courseTable(data);
+        }
+      })
+    })
+
+
+
+
+
+
+
+
+    //添加课程
+    $("#addbtn").click(function () {
+      var courseNum =document.getElementById("addNum").value;
+      var courseName=document.getElementById("addName").value;
+      var classId=document.getElementById("collegelist").value;
+      $.ajax({
+        url:"/course/add",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{courseNum:courseNum,courseName:courseName,classId:classId},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#addNum").val("");
+            $("#addName").val("");
+            $("#myModal").modal('hide');
+            window.location.reload();
+          }else {
+            alert(data);
+          }
+        }
+      })
+    })
+
+
+
+    //编辑学院
+    $("#editbtn").click(function () {
+      var courseId =document.getElementById("editId").value;
+      var courseNum =document.getElementById("editNum").value;
+      var courseName=document.getElementById("editName").value;
+      var classId=document.getElementById("editClass").value;
+      $.ajax({
+        url:"/course/edit",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{courseId:courseId,courseNum:courseNum,courseName:courseName,classId:classId},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          $("#editModal").modal('hide');
+          window.location.reload();
+        }
+      })
+    })
+
   })
+
+
+
 </script>
 </body>
 </html>
