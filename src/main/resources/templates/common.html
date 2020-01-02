@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -28,16 +29,17 @@
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
 
-            <li class="nav-item"> <a th:href="@{/index}"><i class="mdi mdi-book"></i> 教材管理</a> </li>
+            <li class="nav-item" sec:authorize="hasAnyRole('student','teacher')"> <a th:href="@{/index}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
 
-            <li class="nav-item nav-item-has-subnav open">
+            <li class="nav-item nav-item-has-subnav open" sec:authorize="hasRole('admin')">
               <a href="javascript:void(0)"><i class="mdi mdi-settings"></i> 系统管理</a>
               <ul class="nav nav-subnav">
-                <li> <a th:href="@{/college}">  学院管理</a></li>
-                <li> <a th:href="@{/class}">  班级管理</a> </li>
-                <li> <a th:href="@{/course}">  课程管理</a> </li>
-                <li> <a th:href="@{/bookadmin}">  教材管理</a> </li>
-                <li> <a th:href="@{/user}">  用户管理</a> </li>
+                <li sec:authorize="hasRole('admin')"> <a th:href="@{/college}">  学院管理</a></li>
+                <li sec:authorize="hasRole('admin')"> <a th:href="@{/class}">  班级管理</a> </li>
+                <li sec:authorize="hasRole('admin')"> <a th:href="@{/course}">  课程管理</a> </li>
+                <li sec:authorize="hasRole('admin')"> <a th:href="@{/bookadmin}">  教材管理</a> </li>
+                <li sec:authorize="hasRole('admin')"> <a th:href="@{/usermgmt}">  用户管理</a> </li>
+
               </ul>
             </li>
           </ul>
@@ -49,6 +51,38 @@
   </div>
 </div>
 
+<header class="lyear-layout-header" th:fragment="headbar">
+
+  <nav class="navbar navbar-default">
+    <div class="topbar">
+
+      <div class="topbar-left">
+        <!--            <div class="lyear-aside-toggler">-->
+        <!--              <span class="lyear-toggler-bar"></span>-->
+        <!--              <span class="lyear-toggler-bar"></span>-->
+        <!--              <span class="lyear-toggler-bar"></span>-->
+        <!--            </div>-->
+        <!--            <span class="navbar-page-title"> 后台首页 </span>-->
+      </div>
+
+      <ul class="topbar-right">
+        <li class="dropdown dropdown-profile">
+          <a href="javascript:void(0)" data-toggle="dropdown">
+            <i class="mdi mdi-account"></i><span sec:authentication="name"></span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+            <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+            <li class="divider"></li>
+            <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+</header>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>

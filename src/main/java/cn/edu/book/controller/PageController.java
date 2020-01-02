@@ -32,7 +32,7 @@ public class PageController {
     public String course(){
         return "course";
     }
-    @RequestMapping("/user")
+    @RequestMapping("/usermgmt")
     public String user(){
         return "usermgmt";
     }

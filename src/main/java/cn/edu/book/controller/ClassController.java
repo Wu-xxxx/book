@@ -58,7 +58,7 @@ public class ClassController {
     @ResponseBody
     public String deleteClass(Integer clsId) {
         classMapper.deleteClassById(clsId);
-        String s="删除成功成功!";
+        String s="删除成功!";
         System.out.println(s);
         String str = JSON.toJSONString(s);
         return str;
