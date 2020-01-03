@@ -68,58 +68,116 @@
           <h4 style="margin-left: 10px">教材管理</h4>
           <div class="col-md-12">
             <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a style="font-size: 16px" href="#warnningDetails" data-toggle="tab" >应发教材</a></li>
-              <li><a style="font-size: 16px" href="#warnningStatistics" data-toggle="tab">已发教材</a></li>
+              <li class="active"><a style="font-size: 16px" href="#yingfa" data-toggle="tab" role="tab"  aria-controls="profile">应发教材</a></li>
+              <li><a style="font-size: 16px" href="#yifa" data-toggle="tab">已发教材</a></li>
             </ul>
           </div>
         </div>
+          <div id="myTabContent" class="tab-content box">
+            <div class="tab-pane fade in active" id="yingfa">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-lg-3 col-md-3">
+                    <div class="form-inline">
+                      <table>
+                        <tr>
+                          <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">班级名称</label></td>
+                          <td>
+                            <input id="bkClassName" class="form-control input-default" style="width: 150px"/>
+                          </td>
+                          <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">老师姓名：</label></td>
+                          <td>
+                            <input id="tName" class="form-control input-default" style="width: 150px"/>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
+                    <button type="button" class="btn btn-warning" id="addbook">添 加</button>
+                    <button type="button" class="btn btn-primary" id="search">查 询</button>
+                  </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-lg-3 col-md-3">
-              <div class="form-inline">
-                <table>
-                  <tr>
-                    <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">班级名称</label></td>
-                    <td>
-                      <input id="bkClassName" class="form-control input-default" style="width: 150px"/>
-                    </td>
-                    <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">老师姓名：</label></td>
-                    <td>
-                      <input id="tName" class="form-control input-default" style="width: 150px"/>
-                    </td>
-                  </tr>
+                </div>
+
+              </div>
+              <div class="row">
+                <table class="table table-striped" id="book1" >
                 </table>
               </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
-              <button type="button" class="btn btn-warning" id="addbook">添 加</button>
-              <button type="button" class="btn btn-primary" id="search">查 询</button>
-            </div>
+            <div class="tab-pane fade" id="yifa">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-lg-3 col-md-3">
+                    <div class="form-inline">
+                      <table>
+                        <tr>
+                          <td><label style="width: 140px;margin-bottom: 0px;font-size: 15px">教师工号/学号</label></td>
+                          <td>
+                            <input id="uId" class="form-control input-default" style="width: 150px"/>
+                          </td>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-md-offset-6" style="margin-top: 4px;text-align: right">
+                    <button type="button" class="btn btn-primary" id="dstsearch">查 询</button>
+                  </div>
 
+                </div>
+
+              </div>
+              <div class="row  table-responsive">
+                <table class="table table-striped" id="book2" >
+                </table>
+              </div>
+            </div>
           </div>
 
-        </div>
-        <div id="myTabContent" class="tab-content box">
-          <div class="tab-pane fade in active" id="book">
-            <div class="row">
-              <table class="table table-striped" id="book1" >
-              </table>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="warnningHandleResume">
-
-            <div class="row  table-responsive">
-              <table class="table table-striped" id="book2" >
-              </table>
-            </div>
-          </div>
-        </div>
 
 
 
-
-
+        <!--add-->
+        <div class="modal fade" id="distributeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="distributeModalLabel">
+                  分发教材
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group" style="margin-top: 7px;">
+                  <input type="hidden" class="form-control" name="bkId" id="dstbkId" style="width:220px "/>
+                  <label style="width: 140px">教材名称：</label>
+                  <input type="text" class="form-control" name="bkName" id="dstName" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 140px">教材作者：</label>
+                  <input type="text" class="form-control" name="bkAuthor" id="dstAuthor" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 180px">分发给学生学号/教师工号：</label>
+                  <input type="text" class="form-control" name="uid" id="dstuid" style="width:220px "/>
+                </div>
+                <br />
+                </form>
+                按下 ESC 按钮退出。
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="dstbtn">
+                  提交更改
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <!--add-->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -135,23 +193,27 @@
               </div>
               <div class="modal-body">
                 <div class="form-group" style="margin-top: 7px;">
-                  <label style="width: 120px">教材名称：</label>
+                  <label style="width: 140px">教材名称：</label>
                   <input type="text" class="form-control" name="bkNum" id="addName" style="width:220px "/>
                 </div>
                 <div class="form-group" style="margin-top: 7px;">
-                  <label style="width: 120px">教材作者：</label>
+                  <label style="width: 140px">教材作者：</label>
                   <input type="text" class="form-control" name="bkName" id="addAuthor" style="width:220px "/>
                 </div>
                 <div class="form-group" style="margin-top: 7px;">
-                  <label style="width: 120px">使用该教材老师：</label><br/>
+                  <label style="width: 140px">使用该教材老师Id：</label>
+                  <input type="text" class="form-control" name="tName" id="addtId" style="width:220px "/>
+                </div>
+                <div class="form-group" style="margin-top: 7px;">
+                  <label style="width: 140px">使用该教材老师名称：</label><br/>
                   <input type="text" class="form-control" name="tName" id="addtName" style="width:220px "/>
                 </div>
                 <div class="form-group" style="margin-top: 7px;">
-                  <label style="width: 120px">使用该教材班级：</label><br/>
+                  <label style="width: 140px">使用该教材班级：</label><br/>
                   <input type="text" class="form-control" name="clsName" id="addClassName" style="width:220px "/>
                 </div>
                 <div class="form-group" style="margin-top: 7px;">
-                  <label style="width: 120px">教材总量：</label><br/>
+                  <label style="width: 140px">入库教材总量：</label><br/>
                   <input type="text" class="form-control" name="bkNum" id="addbkNum" style="width:220px "/>
                 </div>
                 <br />
@@ -164,6 +226,92 @@
                 </button>
                 <button type="button" class="btn btn-primary" id="addbtn">
                   提交更改
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!--edit-->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="editModalLabel">
+                  编辑学院信息
+                </h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-inline centered" action="/college/edit" id="edit" method="post">
+                  <div class="form-group" style="margin-top: 7px;">
+                    <input type="hidden" class="form-control" name="bkId" id="editId" style="width:220px " />
+                    <label style="width: 140px">教材名称：</label>
+                    <input type="text" class="form-control" name="bkName" id="editName" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 140px">教材作者：</label>
+                    <input type="text" class="form-control" name="bkAuthor" id="editAuthor" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 140px">使用该教材老师id：</label>
+                    <input type="text" class="form-control" name="tId" id="edittId" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 140px">使用该教材老师名称：</label>
+                    <input type="text" class="form-control" name="tName" id="edittName" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 140px">使用该教材班级名称：</label>
+                    <input type="text" class="form-control" name="bkClassName" id="editbkClassName" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 140px">入库教材总量：</label>
+                    <input type="text" class="form-control" name="bkNum" id="editbkNum" style="width:220px "/>
+                  </div>
+                  <div class="form-group" style="margin-top: 7px;">
+                    <label style="width: 140px">当前库存：</label>
+                    <input type="text" class="form-control" name="bkNumNow" id="editbkNumNow" style="width:220px "/>
+                  </div>
+                  <br />
+                </form>
+                按下 ESC 按钮退出。
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="editbtn">
+                  提交更改
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!--删除提示模态框-->
+        <div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="warnModalLabel">
+                  删除教材信息
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p style="color:red;margin-left: 150px;font-size: large"><span id="warnDetail"></span></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="deletbtn">
+                  确认
                 </button>
               </div>
             </div><!-- /.modal-content -->
@@ -198,8 +346,9 @@
         bkTable(data)
       }
     });
+    gettable2();
 
-
+    //bool1应发 表
     function bkTable(data) {
       $("#book1").bootstrapTable('destroy');
       $('#book1').bootstrapTable({
@@ -226,9 +375,11 @@
             {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
             {field: "tName", edit: false, title: "使用该教材老师", align: "center"},
             {field: "bkClassName", edit: false, title: "使用该教材班级", align: "center"},
+            {field: "collegeName", edit: false, title: "班级所在学院", align: "center"},
             {field: "bkNum", edit: false, title: "教材总量", align: "center"},
             {field: "bkNumNow", edit: false, title: "教材当前库存", align: "center"},
-            // {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
+            {field: "tId",edit:false,title:"教师id",align:"center",visible: false},
+            {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
           ]
         ],
         data:data,
@@ -236,7 +387,64 @@
       $('#book1').bootstrapTable('hideLoading');
     }
 
+    //book2已发 表
+    function bkTable2(data) {
+      $("#book2").bootstrapTable('destroy');
+      $('#book2').bootstrapTable({
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        editable: true,//开启编辑模式
+        clickToSelect: true,
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
+        columns: [
+          [
+            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                return index+1;
+              }},
+            {field: "uId", edit: false, title: "下发用户ID（教师工号/学号）", align: "center"},
+            {field: "name", edit: false, title: "用户名称", align: "center"},
+            {field: "role", edit: false, title: "角色", align: "center"},
+            {field: "collegeName", edit: false, title: "所属学院", align: "center"},
+            {field: "bkId", edit: false, title: "教材id", align: "center"},
+            {field: "bkName", edit: false, title: "教材名称", align: "center"},
+            {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
+            {field: "status", edit: false, title: "教材确认状态", align: "center",sortable:true,formatter:function (value, row, index) {
+                if (value==0){
+                  var a='<span style="color: red">未确认</span>'
+                  return a;
+              }else {
+                  var a='<span style="color: green">未确认</span>'
+                  return a;
+                }
+                }},
+            {field: "id",edit:false,title:"id",align:"center",visible: false},
+            // {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
+          ]
+        ],
+        data:data,
+      });
+      $('#book2').bootstrapTable('hideLoading');
+    }
 
+
+    function gettable2(){
+      $.ajax({
+        url:'/bkass/listAll',
+        method: "post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          bkTable2(data)
+        }
+      })
+    }
 
 
 
@@ -247,7 +455,65 @@
 
 
 
-    //查询学院
+
+
+
+
+    function operateFormatter(value, row, index) {
+      return [
+        '<button type="button" class="RoleOfdistribute btn btn-primary  btn-sm" style="margin-right:10px;"><span class="mdi mdi-trending-down"></span></button>'+
+        '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
+        '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete"></span></button>'
+      ].join('');
+    }
+    window.operateEvents = {
+      'click .RoleOfdistribute': function (e, value, row, index) {
+        $("#dstbkId").val(row.bkId);
+        $("#dstName").val(row.bkName);
+        $("#dstAuthor").val(row.bkAuthor);
+        $("#distributeModal").modal('show');
+      },
+      'click .RoleOfhandle': function (e, value, row, index) {
+        $("#editId").val(row.bkId);
+        $("#editName").val(row.bkName);
+        $("#editAuthor").val(row.bkAuthor);
+        $("#edittId").val(row.tId);
+        $("#edittName").val(row.tName);
+        $("#editbkClassName").val(row.bkClassName);
+        $("#editbkNum").val(row.bkNum);
+        $("#editbkNumNow").val(row.bkNumNow);
+        $("#editModal").modal('show');
+      },
+      'click .RoleOfdelete': function (e, value, row, index) {
+        $("#warnModal").modal('show');
+        $("#warnDetail").html("是否确认删除："+row.bkName+"!");
+        $("#deletbtn").click(function () {
+          $.ajax({
+            url:'/bkadmin/deleteById',
+            method: "post",
+            dataType: "json",
+            data:{bkId:row.bkId},
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            clickToSelect: true,
+            complete:function () {
+              $("#warnModal").modal('hide');
+              window.location.reload();
+            }
+          });
+        })
+
+        $('#book1').bootstrapTable('refresh');
+
+      }
+    };
+
+
+
+
+
+
+
+    //查询教材
     $("#search").click(function () {
       var bkClassName =document.getElementById("bkClassName").value;
       var tName=document.getElementById("tName").value;
@@ -266,14 +532,11 @@
 
 
 
-
-
-
-
-    //添加学院
+    //添加教材
     $("#addbtn").click(function () {
       var bkName =document.getElementById("addName").value;
       var bkAuthor=document.getElementById("addAuthor").value;
+      var tId=document.getElementById("addtId").value;
       var tName=document.getElementById("addtName").value;
       var bkClassName=document.getElementById("addClassName").value;
       var bkNum=document.getElementById("addbkNum").value;
@@ -281,13 +544,14 @@
         url:"/bkadmin/add",
         method:"post",
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        data:{bkName:bkName,bkAuthor:bkAuthor,tName:tName,bkClassName:bkClassName,bkNum:bkNum},
+        data:{bkName:bkName,bkAuthor:bkAuthor,tId:tId,tName:tName,bkClassName:bkClassName,bkNum:bkNum},
         dataType: "json",
         clickToSelect: true,
         success:function (data) {
           if (data==null||data==""){
             $("#addName").val("");
             $("#addAuthor").val("");
+            $("#addtId").val("");
             $("#addtName").val("");
             $("#addClassName").val("");
             $("#addName").val("");
@@ -300,6 +564,81 @@
       })
     })
 
+
+
+
+    //编辑教材
+    $("#editbtn").click(function () {
+      var bkId =document.getElementById("editId").value;
+      var bkName =document.getElementById("editName").value;
+      var bkAuthor=document.getElementById("editAuthor").value;
+      var tId =document.getElementById("edittId").value;
+      var tName=document.getElementById("edittName").value;
+      var bkClassName =document.getElementById("editbkClassName").value;
+      var bkNum =document.getElementById("editbkNum").value;
+      var bkNumNow=document.getElementById("editbkNumNow").value;
+      $.ajax({
+        url:"/bkadmin/edit",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkId:bkId,bkName:bkName,bkAuthor:bkAuthor,tId:tId,tName:tName,bkClassName:bkClassName,bkNum:bkNum,bkNumNow:bkNumNow},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#editModal").modal('hide');
+            window.location.reload();
+          } else {
+            alert(data)
+          }
+        }
+      })
+    })
+
+
+
+    //分发教材
+    $("#dstbtn").click(function () {
+      var bkId =document.getElementById("dstbkId").value;
+      var bkName =document.getElementById("dstName").value;
+      var bkAuthor=document.getElementById("dstAuthor").value;
+      var uId =document.getElementById("dstuid").value;
+      $.ajax({
+        url:"/bkass/dst",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkId:bkId,bkName:bkName,bkAuthor:bkAuthor,uId:uId,status:0},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#editModal").modal('hide');
+            window.location.reload();
+          } else {
+            alert(data)
+          }
+        }
+      })
+    })
+
+
+
+
+  //  查询分发情况
+    $("#dstsearch").click(function () {
+      var uId =document.getElementById("uId").value;
+      $.ajax({
+        url:"/bkass/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{uId:uId},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          bkTable2(data);
+        }
+      })
+    })
 
   })
 </script>

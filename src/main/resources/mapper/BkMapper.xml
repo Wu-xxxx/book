@@ -7,7 +7,8 @@
     <!--联表查询-->
     <!--判断条件是否为空-->
     <select id="getBk" resultType="java.util.Map">
-        select *from bk where 1=1
+        select *from bk b
+        left join user u on b.tId=u.uId where 1=1
         <if test="bkClassName !=null and bkClassName !=''">
             and bkClassName like "%"#{bkClassName}"%"
         </if>
@@ -18,24 +19,35 @@
 
     <!--联表查询-->
     <select id="getAllBk" resultType="java.util.Map">
-        select *from bk
+        select *from bk b
+        left join user u on b.tId=u.uId
+    </select>
+
+
+    <!--根据bkId联表查询-->
+    <select id="getBkById" resultType="cn.edu.book.model.Bk">
+        select *from bk b
+        left join user u on b.tId=u.uId
+        where b.bkId=#{b.bkId}
     </select>
 
 
     <!--添加教材-->
     <insert id="addBk">
-        insert into Bk(bkId,tName,bkName,bkAuthor,bkNum,bkClassName,bkNumNow) values(null ,#{tName},#{bkName},#{bkAuthor},#{bkNum},#{bkClassName},#{bkNum})
+        insert into Bk(bkId,tId,tName,bkName,bkAuthor,bkNum,bkClassName,bkNumNow) values(null ,#{tId},#{tName},#{bkName},#{bkAuthor},#{bkNum},#{bkClassName},#{bkNum})
     </insert>
 
 
-    <!--更新课程-->
+    <!--更新教材-->
     <update id="updateBk">
         UPDATE book.bk
-         SET tName = #{tName}, bkName = #{bkName}, bkAuthor = #{bkAuthor}, bkClassName = #{bkClassName
+         SET tId = #{tId},tName = #{tName}, bkName = #{bkName}, bkAuthor = #{bkAuthor},bkNum=#{bkNum},bkClassName = #{bkClassName},bkNumNow=#{bkNumNow}
          WHERE bkId = #{bkId};
     </update>
 
-    <!--删除课程-->
+
+
+    <!--删除教材-->
     <delete id="deleteBkById">
         delete from bk where bkId=#{bkId}
     </delete>

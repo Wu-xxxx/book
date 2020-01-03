@@ -12,7 +12,12 @@ import java.io.Serializable;
 public class Bk implements Serializable {
 //    教材Id
     private Integer bkId;
-//    使用该教材教师姓名
+
+//    使用该教材教师Id 外键链接user表
+    private Integer tId;
+
+
+// 使用该教材教师name
     private String tName;
 
 //    教材名称
@@ -30,4 +35,6 @@ public class Bk implements Serializable {
 //    使用该教材班级
     private String bkClassName;
 
+//   外键链接user表
+    private User user;
 }

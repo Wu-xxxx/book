@@ -11,11 +11,15 @@ public interface BkMapper {
 
     List<Bk> getBk(Bk bk);
 
+    List<Bk> getBkById(Integer bkId);
+
+
     List<Bk> getAllBk();
 
     void addBk(Bk bk);
 
     void updateBk(Bk bk);
+
 
     void deleteBkById(Integer bkId);
 }
