@@ -18,6 +18,13 @@
         left join user u on b.uId=u.uId
     </select>
 
+    <!--联表根据uId查询所有已分配教材-->
+    <select id="getBkassByuId" resultType="java.util.Map">
+        select *from bkass b
+        left join user u on b.uId=u.uId
+        where  b.uId=#{uId}
+    </select>
+
 
 
 
@@ -31,4 +38,13 @@
             and b.uId=#{uId}
         </if>
     </select>
+
+
+
+    <!--更新教材确认状态-->
+    <update id="updateBkassStatus">
+        UPDATE book.bkass
+         SET status=1
+         WHERE id = #{id}
+    </update>
 </mapper>

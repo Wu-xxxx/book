@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>教材管理系统</title>
   <link rel="icon" href="favicon.ico" type="image/ico">
-  <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
-  <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
   <meta name="author" content="yinqi">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/materialdesignicons.min.css" rel="stylesheet">
@@ -29,7 +27,10 @@
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
 
-            <li class="nav-item" sec:authorize="hasAnyRole('student','teacher')"> <a th:href="@{/index}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
+            <li class="nav-item" sec:authorize="hasAnyRole('teacher')"> <a th:href="@{/bookteacher}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
+            <li class="nav-item" sec:authorize="hasAnyRole('student')"> <a th:href="@{/bookstudent}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
+            <li class="nav-item" sec:authorize="hasAnyRole('teacher')"> <a th:href="@{/tuser}"><i class="mdi mdi-account" ></i> 信息管理</a> </li>
+            <li class="nav-item" sec:authorize="hasAnyRole('student')"> <a th:href="@{/suser}"><i class="mdi mdi-account" ></i> 信息管理</a> </li>
 
             <li class="nav-item nav-item-has-subnav open" sec:authorize="hasRole('admin')">
               <a href="javascript:void(0)"><i class="mdi mdi-settings"></i> 系统管理</a>
@@ -70,10 +71,12 @@
           <a href="javascript:void(0)" data-toggle="dropdown">
             <i class="mdi mdi-account"></i><span sec:authentication="name"></span><span class="caret"></span>
           </a>
-          <ul class="dropdown-menu dropdown-menu-right">
-            <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
-            <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
-            <li class="divider"></li>
+          <ul sec:authorize="hasRole('admin')" class="dropdown-menu dropdown-menu-right">
+            <li> <a th:href="@{/usermgmt}"><i class="mdi mdi-account"></i> 修改用户信息</a> </li>
+            <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+          </ul>
+          <ul sec:authorize="hasAnyRole('teacher','student')" class="dropdown-menu dropdown-menu-right">
+            <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 修改个人信息</a> </li>
             <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
           </ul>
         </li>

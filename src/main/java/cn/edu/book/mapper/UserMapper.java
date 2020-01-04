@@ -15,6 +15,7 @@ public interface UserMapper {
     List<User> listAll();
     List<User>listSelected(User user);
     User findByName(String name);
+    User findByUid(Integer uId);
     void delete(Integer id);
     void save(User user);
     void update(User user);

@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>教材管理系统</title>
   <link rel="icon" href="favicon.ico" type="image/ico">
-  <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
-  <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
   <meta name="author" content="yinqi">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/materialdesignicons.min.css" rel="stylesheet">
@@ -29,34 +27,7 @@
     <!--End 左侧导航-->
 
     <!--头部信息-->
-    <header class="lyear-layout-header">
-
-      <nav class="navbar navbar-default">
-        <div class="topbar">
-
-          <div class="topbar-left">
-
-          </div>
-
-          <ul class="topbar-right">
-            <li class="dropdown dropdown-profile">
-              <a href="javascript:void(0)" data-toggle="dropdown">
-                <i class="mdi mdi-account"></i><span>admin <span class="caret"></span></span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
-                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
-                <li class="divider"></li>
-                <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
-              </ul>
-            </li>
-
-          </ul>
-
-        </div>
-      </nav>
-
-    </header>
+    <header th:replace="common::headbar"></header>
     <!--End 头部信息-->
 
     <!--页面主要内容-->
@@ -419,7 +390,7 @@
                   var a='<span style="color: red">未确认</span>'
                   return a;
               }else {
-                  var a='<span style="color: green">未确认</span>'
+                  var a='<span style="color: green">已确认</span>'
                   return a;
                 }
                 }},

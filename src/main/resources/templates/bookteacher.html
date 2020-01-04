@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>教材管理系统</title>
+  <link rel="icon" href="favicon.ico" type="image/ico">
+  <meta name="author" content="yinqi">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <aside class="lyear-layout-sidebar">
+
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a th:href="@{/index}" ><div style="height: 68px;width: 240px"><h4 style="line-height: 68px"> 教材管理系统</h4></div></a>
+      </div>
+      <div th:replace="common::sidebar"></div>
+
+    </aside>
+    <!--End 左侧导航-->
+
+    <!--头部信息-->
+    <header th:replace="common::headbar"></header>
+    <!--End 头部信息-->
+
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <h4 style="margin-left: 10px">教材管理</h4>
+          <div class="col-md-12">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a style="font-size: 16px" href="#yingfa" data-toggle="tab" role="tab"  aria-controls="profile">应发教材</a></li>
+              <li><a style="font-size: 16px" href="#yifa" data-toggle="tab">教材核对</a></li>
+            </ul>
+          </div>
+        </div>
+          <div id="myTabContent" class="tab-content box">
+            <div class="tab-pane fade in active" id="yingfa">
+              <div class="row">
+                <span sec:authentication="name" id="teacherId" style="display:none"></span>
+                <table class="table table-striped" id="book1" >
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="yifa">
+              <div class="row  table-responsive">
+                <table class="table table-striped" id="book2" >
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+
+        <!--教材下发核对提示模态框-->
+        <div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="warnModalLabel">
+                  核对教材信息
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p style="color:red;margin-left: 150px;font-size: large"><span id="warnDetail"></span></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="deletbtn">
+                  确认
+                </button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+      </div>
+
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<script th:src="@{/js/bootstrap-table.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
+<!--图表插件-->
+<script type="text/javascript" src="js/Chart.js"></script>
+<script type="text/javascript">
+  $(function () {
+    console.log("=====")
+    teacherId=document.getElementById("teacherId").innerText;
+
+    $.ajax({
+      url:'/bkteacher/listAll',
+      method: "get",
+      data:{tId:teacherId},
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+        bkTable(data)
+      }
+    });
+    gettable2();
+
+    //bool1应发 表
+    function bkTable(data) {
+      $("#book1").bootstrapTable('destroy');
+      $('#book1').bootstrapTable({
+        //method: "post",
+        //cache: false,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        editable: true,//开启编辑模式
+        clickToSelect: true,
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
+        columns: [
+          [
+            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                return index+1;
+              }},
+            {field: "bkId", edit: false, title: "教材id", align: "center"},
+            {field: "bkName", edit: false, title: "教材名称", align: "center"},
+            {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
+            {field: "tName", edit: false, title: "使用该教材老师", align: "center"},
+            {field: "bkClassName", edit: false, title: "使用该教材班级", align: "center"},
+            {field: "collegeName", edit: false, title: "班级所在学院", align: "center"},
+            {field: "tId",edit:false,title:"教师id",align:"center",visible: false},
+          ]
+        ],
+        data:data,
+      });
+      $('#book1').bootstrapTable('hideLoading');
+    }
+
+    //book2已发 表
+    function bkTable2(data) {
+      $("#book2").bootstrapTable('destroy');
+      $('#book2').bootstrapTable({
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        editable: true,//开启编辑模式
+        clickToSelect: true,
+        //分页操作
+        pageNumber:1,
+        pagination:true,
+        sidePagination : 'client',
+        pageSize : 5,
+        showRefresh : true,//刷新按钮
+        pageList : [ 5, 10, 15],//可选择单页记录数
+        columns: [
+          [
+            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                return index+1;
+              }},
+            {field: "uId", edit: false, title: "下发用户ID（教师工号/学号）", align: "center"},
+            {field: "name", edit: false, title: "用户名称", align: "center"},
+            {field: "role", edit: false, title: "角色", align: "center"},
+            {field: "collegeName", edit: false, title: "所属学院", align: "center"},
+            {field: "bkId", edit: false, title: "教材id", align: "center"},
+            {field: "bkName", edit: false, title: "教材名称", align: "center"},
+            {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
+            {field: "status", edit: false, title: "教材确认状态", align: "center",sortable:true,formatter:function (value, row, index) {
+                if (value==0){
+                  var a='<span style="color: red">未确认</span>'
+                  return a;
+              }else {
+                  var a='<span style="color: green">已确认</span>'
+                  return a;
+                }
+                }},
+            {field: "id",edit:false,title:"id",align:"center",visible: false},
+            {field: "handle", edit: false, title: "确认收到", align: "center",events : operateEvents,formatter : operateFormatter},
+          ]
+        ],
+        data:data,
+      });
+      $('#book2').bootstrapTable('hideLoading');
+    }
+
+
+    function gettable2(){
+      $.ajax({
+        url:'/bkteacher/check',
+        method: "post",
+        data:{uId:teacherId},
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          bkTable2(data)
+        }
+      })
+    }
+
+
+
+    $("#addbook").click(function () {
+      $("#myModal").modal('show');
+    })
+
+
+
+
+
+
+
+
+    function operateFormatter(value, row, index) {
+      return [
+        '<button type="button" class="RoleOfreceive btn btn-primary  btn-sm" style="margin-right:10px;"><span class="mdi mdi-check"></span></button>'
+      ].join('');
+    }
+    window.operateEvents = {
+      'click .RoleOfreceive': function (e, value, row, index) {
+        $("#warnModal").modal('show');
+        $("#warnDetail").html("是否确认已收到："+row.bkName+"!");
+        $("#deletbtn").click(function () {
+          $.ajax({
+            url:'/bkteacher/setstatus',
+            method: "post",
+            dataType: "json",
+            data:{id:row.id},
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            clickToSelect: true,
+            success:function (data) {
+              if (data==null||data==""){
+                $("#warnModal").modal('hide');
+                // window.location.reload();
+                $('#bootstrap-table').bootstrapTable('destroy');
+                gettable2();
+              }else {
+                alert(data);
+              }
+            }
+          });
+        })
+
+        $('#book2').bootstrapTable('refresh');
+
+      }
+    };
+
+
+
+
+
+
+
+    //查询教材
+    $("#search").click(function () {
+      var bkClassName =document.getElementById("bkClassName").value;
+      var tName=document.getElementById("tName").value;
+      $.ajax({
+        url:"/bkadmin/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkClassName:bkClassName,tName:tName},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          bkTable(data);
+        }
+      })
+    })
+
+
+
+    //添加教材
+    $("#addbtn").click(function () {
+      var bkName =document.getElementById("addName").value;
+      var bkAuthor=document.getElementById("addAuthor").value;
+      var tId=document.getElementById("addtId").value;
+      var tName=document.getElementById("addtName").value;
+      var bkClassName=document.getElementById("addClassName").value;
+      var bkNum=document.getElementById("addbkNum").value;
+      $.ajax({
+        url:"/bkadmin/add",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkName:bkName,bkAuthor:bkAuthor,tId:tId,tName:tName,bkClassName:bkClassName,bkNum:bkNum},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#addName").val("");
+            $("#addAuthor").val("");
+            $("#addtId").val("");
+            $("#addtName").val("");
+            $("#addClassName").val("");
+            $("#addName").val("");
+            $("#addbkNum").modal('hide');
+            window.location.reload();
+          }else {
+            alert(data);
+          }
+        }
+      })
+    })
+
+
+
+
+    //编辑教材
+    $("#editbtn").click(function () {
+      var bkId =document.getElementById("editId").value;
+      var bkName =document.getElementById("editName").value;
+      var bkAuthor=document.getElementById("editAuthor").value;
+      var tId =document.getElementById("edittId").value;
+      var tName=document.getElementById("edittName").value;
+      var bkClassName =document.getElementById("editbkClassName").value;
+      var bkNum =document.getElementById("editbkNum").value;
+      var bkNumNow=document.getElementById("editbkNumNow").value;
+      $.ajax({
+        url:"/bkadmin/edit",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkId:bkId,bkName:bkName,bkAuthor:bkAuthor,tId:tId,tName:tName,bkClassName:bkClassName,bkNum:bkNum,bkNumNow:bkNumNow},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#editModal").modal('hide');
+            window.location.reload();
+          } else {
+            alert(data)
+          }
+        }
+      })
+    })
+
+
+
+    //分发教材
+    $("#dstbtn").click(function () {
+      var bkId =document.getElementById("dstbkId").value;
+      var bkName =document.getElementById("dstName").value;
+      var bkAuthor=document.getElementById("dstAuthor").value;
+      var uId =document.getElementById("dstuid").value;
+      $.ajax({
+        url:"/bkass/dst",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{bkId:bkId,bkName:bkName,bkAuthor:bkAuthor,uId:uId,status:0},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          if (data==null||data==""){
+            $("#editModal").modal('hide');
+            window.location.reload();
+          } else {
+            alert(data)
+          }
+        }
+      })
+    })
+
+
+
+
+  //  查询分发情况
+    $("#dstsearch").click(function () {
+      var uId =document.getElementById("uId").value;
+      $.ajax({
+        url:"/bkass/query",
+        method:"post",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{uId:uId},
+        dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          bkTable2(data);
+        }
+      })
+    })
+
+  })
+</script>
+</body>
+</html>

@@ -37,4 +37,5 @@ public class Bk implements Serializable {
 
 //   外键链接user表
     private User user;
+
 }

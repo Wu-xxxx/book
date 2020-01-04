@@ -19,7 +19,7 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) {
         System.out.println("登录用户名为："+s);
-        User user = userMapper.findByName(s);
+        User user = userMapper.findByUid(Integer.parseInt(s));
         return new org.springframework.security.core.userdetails.User(s, user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_"+user.getRole()));
     }
 }

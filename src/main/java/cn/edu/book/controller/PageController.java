@@ -36,4 +36,16 @@ public class PageController {
     public String user(){
         return "usermgmt";
     }
+    @RequestMapping("/bookteacher")
+    public String bookteacher(){
+        return "bookteacher";
+    }
+    @RequestMapping("/bookstudent")
+    public String bookstudent(){
+        return "bookstudent";
+    }
+    @RequestMapping("/tuser")
+    public String tuser(){
+        return "tuser";
+    }
 }

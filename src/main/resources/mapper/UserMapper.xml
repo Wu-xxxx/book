@@ -15,6 +15,11 @@
          select * from user where name = #{name};
     </select>
 
+    <select id="findByUid"  resultType="cn.edu.book.model.User">
+         select * from user where uId = #{uId};
+    </select>
+
+
     <select id="listSelected"  resultType="cn.edu.book.model.User">
         select * FROM user where 1=1
         <if test="uId !=null and uId !=''">and uId = #{uId}</if>

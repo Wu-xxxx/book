@@ -10,6 +10,7 @@ public interface BkassMapper {
 
     List<Bkass> getBkass(Bkass bkass);
 
+    List<Bkass> getBkassByuId(Integer uId);
 
     List<Bkass> getAllBkass();
 
@@ -18,4 +19,6 @@ public interface BkassMapper {
     void updateBkass(Bkass Bkass);
 
     void deleteBkassById(Integer bkId);
+
+    void updateBkassStatus(Integer id);
 }

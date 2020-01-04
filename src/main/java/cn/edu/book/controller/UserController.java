@@ -51,4 +51,12 @@ public class UserController {
         String str  = JSON.toJSONString(list);
         return str;
     }
+    @RequestMapping("/findbyUid")
+    public String findbyUid(Integer uId){
+        User byUid = userMapper.findByUid(uId);
+        String str  = JSON.toJSONString(byUid);
+        return str;
+    }
+
+
 }

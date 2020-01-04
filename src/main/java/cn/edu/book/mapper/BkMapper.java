@@ -13,6 +13,10 @@ public interface BkMapper {
 
     List<Bk> getBkById(Integer bkId);
 
+    List<Bk> getBkBytId(Integer tId);
+
+    List<Bk> getBkBybkClassName(String bkClassName);
+
 
     List<Bk> getAllBk();
 

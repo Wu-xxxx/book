@@ -17,6 +17,14 @@
         </if>
     </select>
 
+
+    <select id="getBkBybkClassName" resultType="java.util.Map">
+        select *from bk b
+        left join user u on b.tId=u.uId
+        where b.bkClassName =#{bkClassName}
+    </select>
+
+
     <!--联表查询-->
     <select id="getAllBk" resultType="java.util.Map">
         select *from bk b
@@ -29,6 +37,14 @@
         select *from bk b
         left join user u on b.tId=u.uId
         where b.bkId=#{b.bkId}
+    </select>
+
+
+    <!--根据tId联表查询-->
+    <select id="getBkBytId" resultType="java.util.Map">
+        select *from bk b
+        left join user u on b.tId=u.uId
+        where b.tId=#{tId}
     </select>
 
 
