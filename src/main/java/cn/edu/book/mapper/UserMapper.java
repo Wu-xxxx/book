@@ -2,7 +2,9 @@ package cn.edu.book.mapper;
 
 import cn.edu.book.model.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 
 
 /**
@@ -10,5 +12,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper {
+    List<User> listAll();
+    List<User>listSelected(@Param("uId")int uId,@Param("name")String name,@Param("className")String className,@Param("collegeName")String collegeName);
     User findByName(String name);
+    void delete(Integer id);
+    void save(User user);
+    void update(User user);
 }

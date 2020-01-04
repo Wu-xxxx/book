@@ -17,12 +17,9 @@ public class MyUserDetailService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         System.out.println("登录用户名为："+s);
         User user = userMapper.findByName(s);
-        String auth = user.getRole();
-        auth = "ROLE_"+auth;
-        String ps = user.getPassword();
-        return new org.springframework.security.core.userdetails.User(s, ps, AuthorityUtils.commaSeparatedStringToAuthorityList(auth));
+        return new org.springframework.security.core.userdetails.User(s, user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_"+user.getRole()));
     }
 }

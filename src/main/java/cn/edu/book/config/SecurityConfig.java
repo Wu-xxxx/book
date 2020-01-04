@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-@Autowired
-private MyUserDetailService myUserDetailService;
+    @Autowired
+    private MyUserDetailService myUserDetailService;
 
 
     @Override
@@ -21,43 +21,35 @@ private MyUserDetailService myUserDetailService;
 
         //首页所有人可以访问，对应功能页只有对应有权限的人可以访问
         //请求授权规则
+
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 //角色是老师和学生可以访问index
                 //.antMatchers("/index").hasAnyRole("student","teacher")
-                .antMatchers("/college","/class","/course","/bookadmin","/usermgmt").hasRole("admin");
-
-//        .antMatchers("/login").hasRole("manager")
-
-        //没有权限默认会到登陆页面
-        // /login
+                .antMatchers("/index").hasAnyRole("admin", "teacher", "student")
+                .antMatchers("/college", "/class", "/course", "/bookadmin", "/usermgmt").hasRole("admin");
         http.formLogin().loginPage("/login").defaultSuccessUrl("/index");
-        //防网站攻击关闭
-        //logout失败可能导致原因
         http.csrf().disable();
         // 开启注销功能
         http.logout().logoutSuccessUrl("/login");
+        //防网站攻击关闭
+        //logout失败可能导致原因
 
 
     }
 
 
-        //认证
-        //密码编码：passwordEncoder
-        // 如不编码 密码明文不安全
+    //认证
+
+    //密码编码：passwordEncoder
+
+    // 如不编码 密码明文不安全
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        可从缓存中添加认证
-//        也可从JDBC添加认证
+        //可从缓存中添加认证//也可从JDBC添加认证
         //auth.inMemoryAuthentication().passwordEncoder(new MyPasswordEncoder()).withUser("admin").password("root").roles("admin");
         auth.userDetailsService(myUserDetailService).passwordEncoder(new MyPasswordEncoder());
-//
-//        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-//                .withUser("manager").password(new BCryptPasswordEncoder().encode("123456")).roles("manager")
-//                .and()
-//                .withUser("teacher").password(new BCryptPasswordEncoder().encode("123456")).roles("teacher")
-//                .and()
-//                .withUser("student").password(new BCryptPasswordEncoder().encode("123456")).roles("student");
+
     }
 }

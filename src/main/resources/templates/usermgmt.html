@@ -1,100 +1,318 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>教材管理系统</title>
-  <link rel="icon" href="favicon.ico" type="image/ico">
-  <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
-  <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
-  <meta name="author" content="yinqi">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="css/style.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>教材管理系统</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
+    <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
+    <meta name="author" content="yinqi">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="lyear-layout-web">
-  <div class="lyear-layout-container">
-    <!--左侧导航-->
-    <aside class="lyear-layout-sidebar">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
 
-      <!-- logo -->
-      <div id="logo" class="sidebar-header">
-        <a th:href="@{/index}" ><div style="height: 68px;width: 240px"><h4 style="line-height: 68px"> 教材管理系统</h4></div></a>
-      </div>
-      <div th:replace="common::sidebar"></div>
-
-    </aside>
-    <!--End 左侧导航-->
-
-    <!--头部信息-->
-    <header class="lyear-layout-header">
-
-      <nav class="navbar navbar-default">
-        <div class="topbar">
-
-          <div class="topbar-left">
-
-          </div>
-
-          <ul class="topbar-right">
-            <li class="dropdown dropdown-profile">
-              <a href="javascript:void(0)" data-toggle="dropdown">
-                <i class="mdi mdi-account"></i><span>admin <span class="caret"></span></span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
-                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
-                <li class="divider"></li>
-                <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
-              </ul>
-            </li>
-
-          </ul>
-
-        </div>
-      </nav>
-
-    </header>
-    <!--End 头部信息-->
-
-    <!--页面主要内容-->
-    <main class="lyear-layout-content">
-
-      <div class="container-fluid">
-
-        <div class="row">
-          <h4 style="margin-left: 10px">用户管理</h4>
-          <div class="col-md-12">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a style="font-size: 16px" href="#warnningDetails" data-toggle="tab" >已下发教材</a></li>
-              <li><a style="font-size: 16px" href="#warnningStatistics" data-toggle="tab">应发教材</a></li>
-            </ul>
-          </div>
-        </div>
-        <div id="myTabContent" class="tab-content box">
-          <div class="tab-pane fade in active" id="warnningDetails">
-            <div class="row">
-              <table class="table table-striped" id="warnning" >
-              </table>
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+                <a th:href="@{/index}">
+                    <div style="height: 68px;width: 240px"><h4 style="line-height: 68px"> 教材管理系统</h4></div>
+                </a>
             </div>
-          </div>
-          <div class="tab-pane fade" id="warnningHandleResume">
+            <div th:replace="common::sidebar"></div>
 
-            <div class="row  table-responsive">
-              <table class="table table-striped" id="warnningReusme" >
-              </table>
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+
+                    <div class="topbar-left">
+
+                    </div>
+
+                    <ul class="topbar-right">
+                        <li class="dropdown dropdown-profile">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <i class="mdi mdi-account"></i><span>admin <span class="caret"></span></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a></li>
+                                <li><a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <h4 style="margin-left: 10px">用户管理</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">
+                                <div class="form-inline">
+                                    <table>
+                                        <tr>
+                                            <td><label
+                                                    style="width: 80px;margin-bottom: 0px;font-size: 15px">姓名：</label>
+                                            </td>
+                                            <td>
+                                                <input id="name" class="form-control input-default"
+                                                       style="width: 150px"/>
+                                            </td>
+                                            <td><label
+                                                    style="width: 80px;margin-left:30px;margin-bottom: 0px;font-size: 15px">学号：</label>
+                                            </td>
+                                            <td>
+                                                <input id="userId" class="form-control input-default"
+                                                       style="width: 150px"/>
+                                            </td>
+                                            <td><label
+                                                    style="width: 100px;margin-left:40px;margin-bottom: 0px;font-size: 15px">学院名称：</label>
+                                            </td>
+                                            <td>
+                                                <input id="collegeName" class="form-control input-default"
+                                                       style="width: 150px"/>
+                                            </td>
+                                            <td><label
+                                                    style="width: 110px;margin-left:40px;margin-bottom: 0px;font-size: 15px">班级名称：</label>
+                                            </td>
+                                            <td>
+                                                <input id="className" class="form-control input-default"
+                                                       style="width: 150px"/>
+                                            </td>
+                                            <!--                    <td>-->
+                                            <!--                      <button type="button" class="btn btn-primary" id="add" style="margin-left: 0px;">添 加</button>-->
+                                            <!--                      <button type="button" class="btn btn-primary" id="searchResume">查 询</button>-->
+                                            <!--                    </td>-->
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-md-offset-6" style="text-align: right">
+                                <button type="button" class="btn btn-warning" id="adduser">添 加</button>
+                                <button type="button" class="btn btn-primary" id="search">查 询</button>
+                            </div>
+
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <table class="table-responsive table-striped" id="userTable"></table>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
-          </div>
-        </div>
 
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding-top: 10px;padding-bottom: 10px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">添加用户</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <table>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px;">姓名：</label></td>
+                                <td>
+                                    <input id="addName" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px;">用户ID：</label></td>
+                                <td>
+                                    <input id="addUid" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr style="height: 38.4px">
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">性别：</label></td>
+                                <td style="text-align: center">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="男" checked> 男
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="女" checked> 女
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">密码：</label></td>
+                                <td>
+                                    <input id="addPs" type="password" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">角色：</label></td>
+                                <td>
+                                    <select id="role" class="form-control input-default" style="width: 150px">
+                                        <option>请选择</option>
+                                        <option value="admin">管理员</option>
+                                        <option value="teacher">教师</option>
+                                        <option value="student">学生</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">学院名称：</label></td>
+                                <td>
+                                    <input id="addclgName" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">班级名称：</label></td>
+                                <td>
+                                    <input id="addClsName" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
 
-      </div>
-
-    </main>
-    <!--End 页面主要内容-->
-  </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--为何这里按键是倒的呢？？？-->
+                <span><button id="useradd" type="button" class="btn btn-primary"
+                              style="margin-left: 10px">确认</button></span>
+                <span><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></span>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding-top: 10px;padding-bottom: 10px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">修改用户</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <table>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px;">姓名：</label></td>
+                                <td>
+                                    <input id="updateName" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px;">用户ID：</label></td>
+                                <td>
+                                    <input id="updateUid" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr style="height: 38.4px">
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">性别：</label></td>
+                                <td style="text-align: center">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="男" checked> 男
+                                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="女" checked> 女
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">密码：</label></td>
+                                <td>
+                                    <input id="updatePs" type="password" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">角色：</label></td>
+                                <td>
+                                    <select id="updaterole" class="form-control input-default" style="width: 150px">
+                                        <option>请选择</option>
+                                        <option value="admin">管理员</option>
+                                        <option value="teacher">教师</option>
+                                        <option value="student">学生</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">学院名称：</label></td>
+                                <td>
+                                    <input id="updateclgName" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><label
+                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">班级名称：</label></td>
+                                <td>
+                                    <input id="updateClsName" class="form-control input-default" style="width: 150px"/>
+                                </td>
+                            </tr>
+                            <input type="text" id="updateId" hidden="hidden">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--为何这里按键是倒的呢？？？-->
+                <span><button id="userupdate" type="button" class="btn btn-primary"
+                              style="margin-left: 10px">确认</button></span>
+                <span><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></span>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="warnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding-top: 10px;padding-bottom: 10px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title" id="myModalLabel1">操作确认</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p id="warnDetail" style="font-size: 20px">是否确认删除用户?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--为何这里按键是倒的呢？？？-->
+                <span><button id="userDelete" type="button" class="btn btn-primary"
+                              style="margin-left: 10px">确认</button></span>
+                <span><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></span>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -104,10 +322,202 @@
 
 <!--图表插件-->
 <script type="text/javascript" src="js/Chart.js"></script>
+<script th:src="@{/js/bootstrap-table.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
 <script type="text/javascript">
-  $(function () {
-    console.log("=====")
-  })
+    $(function () {
+        getAll();
+        $("#adduser").click(function () {
+            $("#add").modal("show");
+        })
+        $("#search").click(function () {
+            var name = $("#name").val();
+            var uid = $("#userId").val();
+            console.log(uid)
+            var clgName = $("#collegeName").val();
+            var clsName = $("#className").val();
+            $.ajax({
+                url: '/user/listSelected',
+                method: "get",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                data:{uid:uid,name:name,clsName:clsName,clgName:clgName},
+                clickToSelect: true,
+                success: function (data) {
+                    userDetails(data)
+                }
+            });
+        })
+        $("#useradd").click(function () {
+            var name =$("#addName").val();
+            var Uid = $("#addUid").val();
+            var gender = $('input:radio:checked').val();
+            var password = $("#addPs").val();
+            var role = $("#role ").val();
+            var clgName = $("#addclgName").val();
+            var clsName = $("#addClsName").val();
+            var user = new Object();
+            user.uId = Uid;
+            user.name = name;
+            user.gender = gender;
+            user.className = clsName;
+            user.password = password;
+            user.role = role;
+            user.collegeName = clgName;
+            var userJson = JSON.stringify(user);
+            $.ajax({
+                url:'/user/add',
+                method: "post",
+                data:{str:userJson},
+                dataType:'Text',
+                success:function (data) {
+                    $("#add").modal('hide');
+                    getAll();
+                }
+            });
+        })
+         $("#userupdate").click(function () {
+             var updateUser = new Object();
+             updateUser.uId = $("#updateUid").val();
+             updateUser.name =$("#updateName").val();
+             updateUser.gender =$('input:radio:checked').val();
+             updateUser.className = $("#updateClsName").val();
+             updateUser.password = $("#updatePs").val();
+             updateUser.role = $("#updaterole").val();
+             updateUser.collegeName = $("#updateclgName").val();
+             updateUser.id = $("#updateId").val();
+             var updateStr =JSON.stringify(updateUser);
+             $.ajax({
+                 url:'/user/update',
+                 method: "get",
+                 data:{str:updateStr},
+                 dataType:'Text',
+                 complete:function () {
+                     $("#update").modal('hide');
+                     getAll();
+                 }
+             });
+         })
+        function getAll() {
+            $.ajax({
+                url: '/user/listAll',
+                method: "get",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                clickToSelect: true,
+                success: function (data) {
+                    userDetails(data)
+                }
+            });
+        }
+
+
+        function userDetails(data) {
+            $("#userTable").bootstrapTable('destroy');
+            $('#userTable').bootstrapTable({
+                method: "post",
+                //cache: false,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                editable: true,//开启编辑模式
+                clickToSelect: true,
+                onlyInfoPagination: false,
+                pageNumber: 1, //初始化加载第一页
+                pagination: true,//是否分页
+                sidePagination: 'client',//server:服务器端分页|client：前端分页
+                paginationPreText: '上一页',
+                paginationNextText: '下一页',
+                pageSize: 15,//单页记录数
+                pageList: [5, 10, 15],//可选择单页记录数
+                // onClickRow: function (row) {
+                //     clickname = row.name;
+                // },
+                columns: [
+                    [
+                        {
+                            field: "serialNumber",
+                            edit: false,
+                            title: "序号",
+                            align: "center",
+                            formatter: function (value, row, index) {
+                                return index + 1;
+                            }
+                        },
+                        {field: "id", edit: false, align: "center", visible: false},
+                        {field: "uId", edit: false, title: "用户ID", align: "center"},
+                        {field: "name", edit: false, title: "姓名", align: "center"},
+                        {field: "password", edit: false, title: "密码", align: "center"},
+                        {field: "gender", edit: false, title: "性别", align: "center"},
+                        {field: "collegeName", edit: false, title: "学院名称", align: "center"},
+                        {field: "className", edit: false, title: "班级名称", align: "center"},
+                        {field: "role", edit: false, title: "角色", align: "center",formatter:function (value, row, index) {
+                            var role;
+                            if (value == "admin"){
+                                role = "管理员";
+                            }else if (value == "teacher"){
+                                role = "教师"
+                            }else if (value == "student"){
+                                role = "学生"
+                            }
+                            return role}},
+                        {
+                            field: "handle",
+                            edit: false,
+                            title: "用户操作",
+                            align: "center",
+                            events: operateEvents,
+                            formatter: operateFormatter,
+                        },
+                    ]
+                ],
+                data: data
+            });
+            $('#userTable').bootstrapTable('hideLoading');
+
+        }
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;height: 30px;color: black"><span class="mdi mdi-pencil"></span></button>' +
+                '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;height: 30px;color: black"><span class="mdi mdi-delete"></span></button>'
+            ].join('');
+        }
+        
+        window.operateEvents = {
+            'click .RoleOfhandle': function (e, value, row, index) {
+                $("#updateUid").val(row.uId);
+                $("#updateName").val(row.name);
+                $("#updateClsName").val(row.className);
+                $("#updatePs").val(row.password);
+                $("#updaterole").val(row.role);
+                $("#updateclgName").val(row.collegeName);
+                $("#updateId").val(row.id);
+                $("#update").modal('show');
+            },
+            'click .RoleOfdelete': function (e, value, row, index) {
+                console.log(row.id)
+                $("#warnModal").modal('show');
+                $("#warnDetail").html("是否确认删除用户：" + row.name)
+                $("#userDelete").click(function () {
+                    $.ajax({
+                        url: '/user/delete',
+                        method: "post",
+                        data: {id: row.id},
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        clickToSelect: true,
+                        complete: function () {
+                            $("#warnModal").modal('hide');
+                            getAll();
+                        }
+                    });
+                })
+
+                $('#empolyeeTable').bootstrapTable('refresh');
+
+
+            }
+        };
+    })
 </script>
 </body>
 </html>
