@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     List<User> listAll();
-    List<User>listSelected(@Param("uId")int uId,@Param("name")String name,@Param("className")String className,@Param("collegeName")String collegeName);
+    List<User>listSelected(@Param("uId")String uId,@Param("name")String name,@Param("className")String className,@Param("collegeName")String collegeName);
     User findByName(String name);
     void delete(Integer id);
     void save(User user);

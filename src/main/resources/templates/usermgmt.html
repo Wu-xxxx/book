@@ -79,34 +79,24 @@
                                                     style="width: 80px;margin-bottom: 0px;font-size: 15px">姓名：</label>
                                             </td>
                                             <td>
-                                                <input id="name" class="form-control input-default"
-                                                       style="width: 150px"/>
+                                                <input id="name" class="form-control input-default" style="width: 150px"/>
                                             </td>
                                             <td><label
                                                     style="width: 80px;margin-left:30px;margin-bottom: 0px;font-size: 15px">学号：</label>
                                             </td>
                                             <td>
-                                                <input id="userId" class="form-control input-default"
-                                                       style="width: 150px"/>
+                                                <input id="userId" class="form-control input-default" style="width: 150px"/>
                                             </td>
-                                            <td><label
-                                                    style="width: 100px;margin-left:40px;margin-bottom: 0px;font-size: 15px">学院名称：</label>
+                                            <td><label style="width: 100px;margin-left:40px;margin-bottom: 0px;font-size: 15px">学院名称：</label>
                                             </td>
                                             <td>
-                                                <input id="collegeName" class="form-control input-default"
-                                                       style="width: 150px"/>
+                                                <input id="collegeName" class="form-control input-default" style="width: 150px"/>
                                             </td>
-                                            <td><label
-                                                    style="width: 110px;margin-left:40px;margin-bottom: 0px;font-size: 15px">班级名称：</label>
+                                            <td><label style="width: 110px;margin-left:40px;margin-bottom: 0px;font-size: 15px">班级名称：</label>
                                             </td>
                                             <td>
-                                                <input id="className" class="form-control input-default"
-                                                       style="width: 150px"/>
+                                                <input id="className" class="form-control input-default" style="width: 150px"/>
                                             </td>
-                                            <!--                    <td>-->
-                                            <!--                      <button type="button" class="btn btn-primary" id="add" style="margin-left: 0px;">添 加</button>-->
-                                            <!--                      <button type="button" class="btn btn-primary" id="searchResume">查 询</button>-->
-                                            <!--                    </td>-->
                                         </tr>
                                     </table>
                                 </div>
@@ -333,16 +323,15 @@
         $("#search").click(function () {
             var name = $("#name").val();
             var uid = $("#userId").val();
-            console.log(uid)
             var clgName = $("#collegeName").val();
             var clsName = $("#className").val();
+            console.log(clgName)
             $.ajax({
                 url: '/user/listSelected',
                 method: "get",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 dataType: "json",
                 data:{uid:uid,name:name,clsName:clsName,clgName:clgName},
-                clickToSelect: true,
                 success: function (data) {
                     userDetails(data)
                 }
@@ -353,7 +342,7 @@
             var Uid = $("#addUid").val();
             var gender = $('input:radio:checked').val();
             var password = $("#addPs").val();
-            var role = $("#role ").val();
+            var role = $("#role").val();
             var clgName = $("#addclgName").val();
             var clsName = $("#addClsName").val();
             var user = new Object();
