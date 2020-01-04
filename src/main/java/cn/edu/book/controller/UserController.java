@@ -46,10 +46,8 @@ public class UserController {
         userMapper.update(user);
     }
     @RequestMapping("/listSelected")
-    public String listSelected(String uid,String name,String clsName,String clgName){
-        System.out.println(clsName);
-        System.out.println(clgName);
-       List<User> list = userMapper.listSelected(uid,name,clsName,clgName);
+    public String listSelected(User user){
+       List<User> list = userMapper.listSelected(user);
         String str  = JSON.toJSONString(list);
         return str;
     }

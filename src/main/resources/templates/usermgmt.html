@@ -322,16 +322,16 @@
         })
         $("#search").click(function () {
             var name = $("#name").val();
-            var uid = $("#userId").val();
+           // var uid = $("#userId").val();
+            var uid = document.getElementById("userId").value;
             var clgName = $("#collegeName").val();
             var clsName = $("#className").val();
-            console.log(clgName)
             $.ajax({
                 url: '/user/listSelected',
                 method: "get",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 dataType: "json",
-                data:{uid:uid,name:name,clsName:clsName,clgName:clgName},
+                data:{uId:uid,name:name,className:clsName,collegeName:clgName},
                 success: function (data) {
                     userDetails(data)
                 }
