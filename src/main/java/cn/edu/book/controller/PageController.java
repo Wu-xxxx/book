@@ -48,4 +48,8 @@ public class PageController {
     public String tuser(){
         return "tuser";
     }
+    @RequestMapping("/suser")
+    public String suser(){
+        return "suser";
+    }
 }

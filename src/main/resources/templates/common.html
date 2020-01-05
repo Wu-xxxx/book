@@ -75,8 +75,12 @@
             <li> <a th:href="@{/usermgmt}"><i class="mdi mdi-account"></i> 修改用户信息</a> </li>
             <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
           </ul>
-          <ul sec:authorize="hasAnyRole('teacher','student')" class="dropdown-menu dropdown-menu-right">
-            <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 修改个人信息</a> </li>
+          <ul sec:authorize="hasAnyRole('teacher')" class="dropdown-menu dropdown-menu-right">
+            <li> <a th:href="@{/tuser}"><i class="mdi mdi-account"></i> 修改个人信息</a> </li>
+            <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+          </ul>
+          <ul sec:authorize="hasAnyRole('student')" class="dropdown-menu dropdown-menu-right">
+            <li> <a th:href="@{/suser}"><i class="mdi mdi-account"></i> 修改个人信息</a> </li>
             <li> <a th:href="@{/login}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
           </ul>
         </li>

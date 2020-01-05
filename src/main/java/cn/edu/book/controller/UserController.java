@@ -45,6 +45,22 @@ public class UserController {
         User user =JSON.parseObject(str, User.class);
         userMapper.update(user);
     }
+
+
+    @RequestMapping("/tupdate")
+    public String tupdate(User user){
+       try {
+           userMapper.tupdate(user);
+           String s="";
+           String str = JSON.toJSONString(s);
+           return str;
+       }catch (Exception e){
+           String s="更新失败";
+           String str = JSON.toJSONString(s);
+           return  str;
+       }
+    }
+
     @RequestMapping("/listSelected")
     public String listSelected(User user){
        List<User> list = userMapper.listSelected(user);

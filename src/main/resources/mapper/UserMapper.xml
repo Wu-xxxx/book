@@ -60,4 +60,12 @@
             where id = #{id};
         </if>
     </update>
+
+
+    <update id="tupdate">
+        UPDATE `book`.`user`
+         SET  name=#{name},gender=#{gender},collegeName=#{collegeName},password=#{password}
+         WHERE id= #{id};
+    </update>
+
 </mapper>

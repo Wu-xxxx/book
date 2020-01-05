@@ -122,8 +122,8 @@
                                 <td style="text-align: center"><label
                                         style="width: 120px;margin-bottom: 0px;font-size: 15px">性别：</label></td>
                                 <td style="text-align: center">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="男" checked> 男
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="女" checked> 女
+                                    <input type="radio" name="optionsRadios1" id="optionsRadios1" value="男" > 男
+                                    <input type="radio" name="optionsRadios1" id="optionsRadios2" value="女" > 女
                                 </td>
                             </tr>
                             <tr>
@@ -199,11 +199,10 @@
                                 </td>
                             </tr>
                             <tr style="height: 38.4px">
-                                <td style="text-align: center"><label
-                                        style="width: 120px;margin-bottom: 0px;font-size: 15px">性别：</label></td>
+                                <td style="text-align: center"><label style="width: 120px;margin-bottom: 0px;font-size: 15px">性别：</label></td>
                                 <td style="text-align: center">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="男" checked> 男
-                                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="女" checked> 女
+                                    <input type="radio" name="optionsRadios2" id="optionsRadios3" value="男" > 男
+                                    <input type="radio" name="optionsRadios2" id="optionsRadios4" value="女" > 女
                                 </td>
                             </tr>
                             <tr>
@@ -312,7 +311,7 @@
         $("#useradd").click(function () {
             var name =$("#addName").val();
             var Uid = $("#addUid").val();
-            var gender = $('input:radio:checked').val();
+            var gender = $("input[name='optionsRadios1']:checked").val()
             var password = $("#addPs").val();
             var role = $("#role").val();
             var clgName = $("#addclgName").val();
@@ -453,6 +452,11 @@
                 $("#updaterole").val(row.role);
                 $("#updateclgName").val(row.collegeName);
                 $("#updateId").val(row.id);
+                if (row.gender="男"){
+                    $("input[name='optionsRadios2'][value='男']").attr("checked",true);
+                }else {
+                    $("input[name='optionsRadios2'][value='女']").attr("checked",true);
+                }
                 $("#update").modal('show');
             },
             'click .RoleOfdelete': function (e, value, row, index) {
