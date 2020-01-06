@@ -26,7 +26,7 @@
 
 
     <!--联表查询-->
-    <select id="getAllBk" resultType="java.util.Map">
+    <select id="getAllBk" resultType="cn.edu.book.model.Bk">
         select *from bk b
         left join user u on b.tId=u.uId
     </select>

@@ -41,6 +41,7 @@
             <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a style="font-size: 16px" href="#yingfa" data-toggle="tab" role="tab"  aria-controls="profile">应发教材</a></li>
               <li><a style="font-size: 16px" href="#yifa" data-toggle="tab">已发教材</a></li>
+              <li><a style="font-size: 16px" href="#tongji" data-toggle="tab">出库统计</a></li>
             </ul>
           </div>
         </div>
@@ -101,6 +102,14 @@
               <div class="row  table-responsive">
                 <table class="table table-striped" id="book2" >
                 </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tongji">
+              <div class="row" style="margin-top: 100px">
+                <div class="col-md-12">
+                  <div  id="tongjibook" style="height: 650px">
+                </div>
+                </div>
               </div>
             </div>
           </div>
@@ -302,8 +311,8 @@
 <script type="text/javascript" src="js/main.min.js"></script>
 <script th:src="@{/js/bootstrap-table.js}" type="text/javascript"></script>
 <script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
+<script th:src="@{/js/echarts.min.js}" type="text/javascript"></script>
 <!--图表插件-->
-<script type="text/javascript" src="js/Chart.js"></script>
 <script type="text/javascript">
   $(function () {
     console.log("=====")
@@ -422,8 +431,99 @@
     $("#addbook").click(function () {
       $("#myModal").modal('show');
     })
+    $.ajax({
+      url:'/bkadmin/listkucun',
+      method: "get",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      //dataType: "json",
+      clickToSelect: true,
+      success:function (data) {
+        tongjibook(data)
+      }
+    });
+    function tongjibook(data) {
+      var bookName = new Array();
+      var bookall = new Array();
+      var booknow = new Array();
+      var bookout = new Array();
+      bookName = JSON.parse(data.split("|")[0]);
+      bookall = JSON.parse(data.split("|")[1]);
+      booknow = JSON.parse(data.split("|")[2]);
+      for(var i = 0;i<bookall.length;i++){
+        bookout[i] = bookall[i] - booknow[i];
+      }
+      var myChart = echarts.init(document.getElementById('tongjibook'));
+      var option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['进库数量', '现有库存','出库数量']
+        },
+        grid:{
+          left:'5%',
+          right:'5%',
 
-
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+          }
+        },
+        calculable: true,
+        xAxis: [
+          {
+            type: 'category',
+            data:bookName,
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '进库数量',
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'top',
+              fontSize:18
+            },
+            data: bookall,
+          },
+          {
+            name: '现有库存',
+            type: 'bar',
+            data: booknow,
+            label: {
+              show: true,
+              position: 'top',
+              fontSize:18
+            },
+          },
+          {
+            name: '出库数量',
+            type: 'bar',
+            data: bookout,
+            label: {
+              show: true,
+              position: 'top',
+              fontSize:18
+            },
+          }
+        ]
+      };
+      myChart.setOption(option, true);
+      setTimeout(function () {
+        myChart.resize();
+      }, 1500)
+    }
 
 
 
