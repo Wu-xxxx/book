@@ -20,6 +20,8 @@ public interface BkMapper {
 
     List<Bk> getAllBk();
 
+    List<Bk> getAllBk2();
+
     void addBk(Bk bk);
 
     void updateBk(Bk bk);

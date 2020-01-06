@@ -27,6 +27,7 @@ public class BkController {
     public String listAll(){
         List<Bk> list = bkMapper.getAllBk();
         String str = JSON.toJSONString(list);
+        System.out.println(list);
         return str;
     }
 
@@ -100,7 +101,7 @@ public class BkController {
     @RequestMapping("/listkucun")
     @ResponseBody
     public String listkucun(){
-        List<Bk> list = bkMapper.getAllBk();
+        List<Bk> list = bkMapper.getAllBk2();
         Map<String,Integer> map = new HashMap<>();
         Map<String,Integer> mapNow = new HashMap<>();
         List<String> bookName = new ArrayList<>();

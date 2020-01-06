@@ -67,7 +67,7 @@
                     </td>
                     <td><label style="width: 110px;margin-left:50px;margin-bottom: 0px;font-size: 15px">所属班级名称：</label></td>
                     <td>
-                      <select class="selectpicker" id="classId" style="width: 150px;height: 40px;text-align: center;text-align-last: center;">
+                      <select class="form-control" id="classId" style="width: 150px;height: 40px;">
                       </select>
                     </td>
                   </tr>
@@ -252,14 +252,15 @@
         dataType: "json",
         clickToSelect: true,
         success: function (data1) {
-          var selectObj=document.getElementById("classId");
-          selectObj.options.length=0;
+          var selectObj1=document.getElementById("classId");
+          selectObj1.options.length=0;
           var a=data1.length;
-          selectObj.add(new Option("请选择所属班级",""));
+          selectObj1.add(new Option("请选择所属班级",""));
           for(var i=0;i<a;i++){
             //new option(text,value)
-            selectObj.add(new Option(data1[i].clsName,data1[i].clsId))
+            selectObj1.add(new Option(data1[i].clsName,data1[i].clsId))
           };
+          console.log(data1)
         }
       })
     }

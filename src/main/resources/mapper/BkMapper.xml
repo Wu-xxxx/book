@@ -26,7 +26,13 @@
 
 
     <!--联表查询-->
-    <select id="getAllBk" resultType="cn.edu.book.model.Bk">
+    <select id="getAllBk" resultType="java.util.Map">
+        select *from bk b
+        left join user u on b.tId=u.uId
+    </select>
+
+    <!--联表查询-->
+    <select id="getAllBk2" resultType="cn.edu.book.model.Bk">
         select *from bk b
         left join user u on b.tId=u.uId
     </select>
@@ -36,7 +42,7 @@
     <select id="getBkById" resultType="cn.edu.book.model.Bk">
         select *from bk b
         left join user u on b.tId=u.uId
-        where b.bkId=#{b.bkId}
+        where b.bkId=#{bkId}
     </select>
 
 
