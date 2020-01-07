@@ -287,6 +287,7 @@
 <script th:src="@{/js/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
+        getname();
         getAll();
         $("#adduser").click(function () {
             $("#add").modal("show");
@@ -482,6 +483,23 @@
 
             }
         };
+
+
+        //获取用户名
+        function getname() {
+            nowId=document.getElementById("nowId").innerText;
+            $.ajax({
+                url: '/user/findbyUid',
+                method: "post",
+                data: {uId: nowId},
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                clickToSelect: true,
+                success: function (data) {
+                    $("#username").html(data.name)
+                }
+            })
+        }
     })
 </script>
 </body>

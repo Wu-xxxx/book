@@ -65,7 +65,24 @@
 <script type="text/javascript">
     $(function () {
         console.log("=====")
+        getname();
     })
+
+    //获取用户名
+    function getname() {
+        nowId=document.getElementById("nowId").innerText;
+        $.ajax({
+            url: '/user/findbyUid',
+            method: "post",
+            data: {uId: nowId},
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            clickToSelect: true,
+            success: function (data) {
+                $("#username").html(data.name)
+            }
+        })
+    }
 </script>
 </body>
 </html>

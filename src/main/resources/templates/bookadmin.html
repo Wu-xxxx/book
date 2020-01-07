@@ -41,7 +41,7 @@
             <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a style="font-size: 16px" href="#yingfa" data-toggle="tab" role="tab"  aria-controls="profile">应发教材</a></li>
               <li><a style="font-size: 16px" href="#yifa" data-toggle="tab">已发教材</a></li>
-              <li><a style="font-size: 16px" href="#tongji" data-toggle="tab">出库统计</a></li>
+              <li><a style="font-size: 16px" href="#tongji" data-toggle="tab" id="chukutongji">出库统计</a></li>
             </ul>
           </div>
         </div>
@@ -327,6 +327,7 @@
       }
     });
     gettable2();
+    getname();
 
     //bool1应发 表
     function bkTable(data) {
@@ -431,16 +432,31 @@
     $("#addbook").click(function () {
       $("#myModal").modal('show');
     })
-    $.ajax({
-      url:'/bkadmin/listkucun',
-      method: "get",
-      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-      //dataType: "json",
-      clickToSelect: true,
-      success:function (data) {
-        tongjibook(data)
-      }
-    });
+
+
+    $("#chukutongji").click(function () {
+      $.ajax({
+        url:'/bkadmin/listkucun',
+        method: "get",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        //dataType: "json",
+        clickToSelect: true,
+        success:function (data) {
+          tongjibook(data)
+        }
+      });
+    })
+
+    // $.ajax({
+    //   url:'/bkadmin/listkucun',
+    //   method: "get",
+    //   contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+    //   //dataType: "json",
+    //   clickToSelect: true,
+    //   success:function (data) {
+    //     tongjibook(data)
+    //   }
+    // });
     function tongjibook(data) {
       var bookName = new Array();
       var bookall = new Array();
@@ -522,7 +538,7 @@
       myChart.setOption(option, true);
       setTimeout(function () {
         myChart.resize();
-      }, 1500)
+      }, 200)
     }
 
 
@@ -711,6 +727,22 @@
       })
     })
 
+
+    //获取用户名
+    function getname() {
+      nowId=document.getElementById("nowId").innerText;
+      $.ajax({
+        url: '/user/findbyUid',
+        method: "post",
+        data: {uId: nowId},
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        clickToSelect: true,
+        success: function (data) {
+          $("#username").html(data.name)
+        }
+      })
+    }
   })
 </script>
 </body>
