@@ -26,20 +26,20 @@
 
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
-            <li class="nav-item" sec:authorize="hasAnyRole('teacher','admin','student')"><a th:href="@{/index}"><i class="mdi mdi-box-cutter" ></i> 欢迎使用</a> </li>
-            <li class="nav-item" sec:authorize="hasAnyRole('teacher')"> <a th:href="@{/bookteacher}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
-            <li class="nav-item" sec:authorize="hasAnyRole('student')"> <a th:href="@{/bookstudent}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
-            <li class="nav-item" sec:authorize="hasAnyRole('teacher')"> <a th:href="@{/tuser}"><i class="mdi mdi-account" ></i> 信息管理</a> </li>
-            <li class="nav-item" sec:authorize="hasAnyRole('student')"> <a th:href="@{/suser}"><i class="mdi mdi-account" ></i> 信息管理</a> </li>
+            <li class="nav-item active" th:class="${activeUri=='index' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasAnyRole('teacher','admin','student')"><a th:href="@{/index}"><i class="mdi mdi-box-cutter" ></i> 欢迎使用</a> </li>
+            <li class="nav-item" th:class="${activeUri=='bookteacher' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasAnyRole('teacher')"> <a th:href="@{/bookteacher}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
+            <li class="nav-item" th:class="${activeUri=='bookstudent' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasAnyRole('student')"> <a th:href="@{/bookstudent}"><i class="mdi mdi-book" ></i> 教材管理</a> </li>
+            <li class="nav-item" th:class="${activeUri=='tuser' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasAnyRole('teacher')"> <a th:href="@{/tuser}"><i class="mdi mdi-account" ></i> 信息管理</a> </li>
+            <li class="nav-item" th:class="${activeUri=='suser' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasAnyRole('student')"> <a th:href="@{/suser}"><i class="mdi mdi-account" ></i> 信息管理</a> </li>
 
-            <li class="nav-item nav-item-has-subnav open" sec:authorize="hasRole('admin')">
+            <li class="nav-item nav-item-has-subnav open" th:class="${activeUri=='college'||activeUri=='class'||activeUri=='course' ||activeUri=='bookadmin'||activeUri=='usermgmt'? 'nav-item nav-item-has-subnav open active' : 'nav-item nav-item-has-subnav open'}"sec:authorize="hasRole('admin')">
               <a href="javascript:void(0)"><i class="mdi mdi-settings"></i> 系统管理</a>
               <ul class="nav nav-subnav">
-                <li sec:authorize="hasRole('admin')"> <a th:href="@{/college}">  学院管理</a></li>
-                <li sec:authorize="hasRole('admin')"> <a th:href="@{/class}">  班级管理</a> </li>
-                <li sec:authorize="hasRole('admin')"> <a th:href="@{/course}">  课程管理</a> </li>
-                <li sec:authorize="hasRole('admin')"> <a th:href="@{/bookadmin}">  教材管理</a> </li>
-                <li sec:authorize="hasRole('admin')"> <a th:href="@{/usermgmt}">  用户管理</a> </li>
+                <li th:class="${activeUri=='college' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasRole('admin')"> <a th:href="@{/college}">  学院管理</a></li>
+                <li th:class="${activeUri=='class' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasRole('admin')"> <a th:href="@{/class}">  班级管理</a> </li>
+                <li th:class="${activeUri=='course' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasRole('admin')"> <a th:href="@{/course}">  课程管理</a> </li>
+                <li th:class="${activeUri=='bookadmin' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasRole('admin')"> <a th:href="@{/bookadmin}">  教材管理</a> </li>
+                <li th:class="${activeUri=='usermgmt' ? 'nav-item active' : 'nav-item'}" sec:authorize="hasRole('admin')"> <a th:href="@{/usermgmt}">  用户管理</a> </li>
 
               </ul>
             </li>
@@ -51,6 +51,9 @@
     </aside>
   </div>
 </div>
+
+
+
 
 <header class="lyear-layout-header" th:fragment="headbar">
 

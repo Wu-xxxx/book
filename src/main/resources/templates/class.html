@@ -268,9 +268,9 @@
               pageList : [ 5, 10, 15],//可选择单页记录数
               columns: [
                   [
-                      {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
-                              return index+1;
-                          }},
+                      // {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+                      //         return index+1;
+                      //     }},
                       {field: "clsId", edit: false, title: "班级ID", align: "center"},
                       {field: "clsNum", edit: false, title: "班级编号", align: "center"},
                       {field: "clsName", edit: false, title: "班级名称", align: "center"},
@@ -337,8 +337,8 @@
       //列表添加编辑，删除按钮
       function operateFormatter(value, row, index) {
           return [
-              '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil"></span></button>'+
-              '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete"></span></button>'
+              '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil">修改</span></button>'+
+              '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete">删除</span></button>'
           ].join('');
       }
       window.operateEvents = {
