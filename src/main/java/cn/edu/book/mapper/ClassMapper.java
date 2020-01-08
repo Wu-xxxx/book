@@ -18,7 +18,7 @@ public interface ClassMapper {
 
     void addClass(Class class1);
 
-
+    List<Class> getClassByClgId(Integer collegeId);
     void updateClass(Class class1);
 
     void deleteClassById(Integer clsId);

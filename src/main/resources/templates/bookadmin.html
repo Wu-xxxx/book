@@ -53,11 +53,11 @@
                     <div class="form-inline">
                       <table>
                         <tr>
-                          <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">班级名称</label></td>
+                          <td style="text-align: right"><label style="width: 80px;margin-bottom: 0px;font-size: 15px">班级名称：</label></td>
                           <td>
                             <input id="bkClassName" class="form-control input-default" style="width: 150px"/>
                           </td>
-                          <td><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">老师姓名：</label></td>
+                          <td style="text-align: right"><label style="width: 80px;margin-left:50px;margin-bottom: 0px;font-size: 15px">老师姓名：</label></td>
                           <td>
                             <input id="tName" class="form-control input-default" style="width: 150px"/>
                           </td>
@@ -73,7 +73,8 @@
                 </div>
 
               </div>
-              <div class="row">
+              <hr/>
+              <div class="row" style="margin-left: 10px;margin-right: 10px">
                 <table class="table table-striped" id="book1" >
                 </table>
               </div>
@@ -85,7 +86,7 @@
                     <div class="form-inline">
                       <table>
                         <tr>
-                          <td><label style="width: 140px;margin-bottom: 0px;font-size: 15px">教师工号/学号</label></td>
+                          <td style="text-align: right"><label style="width: 140px;margin-bottom: 0px;font-size: 15px">教师工号/学号：</label></td>
                           <td>
                             <input id="uId" class="form-control input-default" style="width: 150px"/>
                           </td>
@@ -99,7 +100,8 @@
                 </div>
 
               </div>
-              <div class="row  table-responsive">
+              <hr/>
+              <div class="row  table-responsive" style="margin-left: 10px;margin-right: 10px">
                 <table class="table table-striped" id="book2" >
                 </table>
               </div>
@@ -344,21 +346,20 @@
         pagination:true,
         sidePagination : 'client',
         pageSize : 5,
-        showRefresh : true,//刷新按钮
         pageList : [ 5, 10, 15],//可选择单页记录数
         columns: [
           [
-            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
-                return index+1;
-              }},
-            {field: "bkId", edit: false, title: "教材id", align: "center"},
-            {field: "bkName", edit: false, title: "教材名称", align: "center"},
-            {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
-            {field: "tName", edit: false, title: "使用该教材老师", align: "center"},
-            {field: "bkClassName", edit: false, title: "使用该教材班级", align: "center"},
-            {field: "collegeName", edit: false, title: "班级所在学院", align: "center"},
-            {field: "bkNum", edit: false, title: "教材总量", align: "center"},
-            {field: "bkNumNow", edit: false, title: "教材当前库存", align: "center"},
+            // {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+            //     return index+1;
+            //   }},
+            {field: "bkId", edit: false, title: "教材id", align: "center",width:'120px'},
+            {field: "bkName", edit: false, title: "名称", align: "center",width:'120px'},
+            {field: "bkAuthor", edit: false, title: "作者", align: "center",width:'120px'},
+            {field: "tName", edit: false, title: "使用老师", align: "center",width:'120px',visible:false},
+            {field: "bkClassName", edit: false, title: "使用班级", align: "center",width:'120px'},
+            {field: "collegeName", edit: false, title: "所在学院", align: "center",width:'120px'},
+            {field: "bkNum", edit: false, title: "总量", align: "center",width:'80px'},
+            {field: "bkNumNow", edit: false, title: "当前库存",width:'80px', align: "center"},
             {field: "tId",edit:false,title:"教师id",align:"center",visible: false},
             {field: "handle", edit: false, title: "操作", align: "center",events : operateEvents,formatter : operateFormatter},
           ]
@@ -381,13 +382,12 @@
         pagination:true,
         sidePagination : 'client',
         pageSize : 5,
-        showRefresh : true,//刷新按钮
         pageList : [ 5, 10, 15],//可选择单页记录数
         columns: [
           [
-            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
-                return index+1;
-              }},
+            // {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+            //     return index+1;
+            //   }},
             {field: "uId", edit: false, title: "下发用户ID（教师工号/学号）", align: "center"},
             {field: "name", edit: false, title: "用户名称", align: "center"},
             {field: "role", edit: false, title: "角色", align: "center"},
@@ -548,9 +548,9 @@
 
     function operateFormatter(value, row, index) {
       return [
-        '<button type="button" class="RoleOfdistribute btn btn-primary  btn-sm" style="margin-right:10px;"><span class="mdi mdi-trending-down">分发</span></button>'+
-        '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:10px;"><span class="mdi mdi-pencil">修改</span></button>'+
-        '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;"><span class="mdi mdi-delete">删除</span></button>'
+        '<button type="button" class="RoleOfdistribute btn btn-primary  btn-sm" style="margin-right:5px;"><span class="mdi mdi-trending-down">分发</span></button>'+
+        '<button type="button" class="RoleOfhandle btn btn-info  btn-sm" style="margin-right:5px;"><span class="mdi mdi-pencil">修改</span></button>'+
+        '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:5px;"><span class="mdi mdi-delete">删除</span></button>'
       ].join('');
     }
     window.operateEvents = {

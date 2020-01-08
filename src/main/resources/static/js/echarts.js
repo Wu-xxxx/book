@@ -1034,6 +1034,7 @@ function updateDirectly(ecIns, method, payload, mainType, subType) {
  * @param {boolean} [opts.silent=false]
  */
 echartsProto.resize = function (opts) {
+    console.log("resize")
     if (__DEV__) {
         assert(!this[IN_MAIN_PROCESS], '`resize` should not be called during main process.');
     }

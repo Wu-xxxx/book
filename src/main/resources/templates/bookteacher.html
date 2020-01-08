@@ -47,14 +47,14 @@
         </div>
           <div id="myTabContent" class="tab-content box">
             <div class="tab-pane fade in active" id="yingfa">
-              <div class="row">
+              <div class="row" style="margin-left: 10px;margin-right: 10px">
                 <span sec:authentication="name" id="teacherId" style="display:none"></span>
                 <table class="table table-striped" id="book1" >
                 </table>
               </div>
             </div>
             <div class="tab-pane fade" id="yifa">
-              <div class="row  table-responsive">
+              <div class="row  table-responsive" style="margin-left: 10px;margin-right: 10px">
                 <table class="table table-striped" id="book2" >
                 </table>
               </div>
@@ -139,13 +139,12 @@
         pagination:true,
         sidePagination : 'client',
         pageSize : 5,
-        showRefresh : true,//刷新按钮
         pageList : [ 5, 10, 15],//可选择单页记录数
         columns: [
           [
-            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
-                return index+1;
-              }},
+            // {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+            //     return index+1;
+            //   }},
             {field: "bkId", edit: false, title: "教材id", align: "center"},
             {field: "bkName", edit: false, title: "教材名称", align: "center"},
             {field: "bkAuthor", edit: false, title: "教材作者", align: "center"},
@@ -173,13 +172,12 @@
         pagination:true,
         sidePagination : 'client',
         pageSize : 5,
-        showRefresh : true,//刷新按钮
         pageList : [ 5, 10, 15],//可选择单页记录数
         columns: [
           [
-            {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
-                return index+1;
-              }},
+            // {field: "serialNumber", edit: false, title: "序号", align: "center",formatter: function (value, row, index) {
+            //     return index+1;
+            //   }},
             {field: "uId", edit: false, title: "下发用户ID（教师工号/学号）", align: "center"},
             {field: "name", edit: false, title: "用户名称", align: "center"},
             {field: "role", edit: false, title: "角色", align: "center"},

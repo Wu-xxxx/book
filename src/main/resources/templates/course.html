@@ -53,21 +53,21 @@
               <div class="form-inline">
                 <table>
                   <tr>
-                    <td><label style="width: 80px;margin-bottom: 0px;font-size: 15px">课程ID：</label></td>
+                    <td style="text-align: right"><label style="width: 80px;margin-bottom: 0px;font-size: 15px">课程ID：</label></td>
                     <td>
-                      <input id="courseId" class="form-control input-default" style="width: 150px"/>
+                      <input id="courseId" class="form-control input-default" style="width: 100px"/>
                     </td>
-                    <td><label style="width: 80px;margin-left:40px;margin-bottom: 0px;font-size: 15px">课程编号：</label></td>
+                    <td style="text-align: right"><label style="width: 80px;margin-left:20px;margin-bottom: 0px;font-size: 15px">课程编号：</label></td>
                     <td>
-                      <input id="courseNum" class="form-control input-default" style="width: 150px"/>
+                      <input id="courseNum" class="form-control input-default" style="width: 100px"/>
                     </td>
-                    <td><label style="width: 80px;margin-left:40px;margin-bottom: 0px;font-size: 15px">课程名称：</label></td>
+                    <td style="text-align: right"><label style="width: 80px;margin-left:20px;margin-bottom: 0px;font-size: 15px">课程名称：</label></td>
                     <td>
-                      <input id="courseName" class="form-control input-default" style="width: 150px"/>
+                      <input id="courseName" class="form-control input-default" style="width: 120px"/>
                     </td>
-                    <td><label style="width: 110px;margin-left:40px;margin-bottom: 0px;font-size: 15px">所属班级名称：</label></td>
+                    <td style="text-align: right"><label style="width: 110px;margin-left:20px;margin-bottom: 0px;font-size: 15px">所属班级名称：</label></td>
                     <td>
-                      <select class="form-control" id="classId" style="width: 150px;height: 40px;">
+                      <select class="form-control" id="classId" style="width: 110px;height: 40px;">
                       </select>
                     </td>
                   </tr>
@@ -256,7 +256,7 @@
           var selectObj1=document.getElementById("classId");
           selectObj1.options.length=0;
           var a=data1.length;
-          selectObj1.add(new Option("请选择所属班级",""));
+          selectObj1.add(new Option("所属班级",""));
           for(var i=0;i<a;i++){
             //new option(text,value)
             selectObj1.add(new Option(data1[i].clsName,data1[i].clsId))
@@ -308,7 +308,6 @@
         pagination:true,
         sidePagination : 'client',
         pageSize : 5,
-        showRefresh : true,//刷新按钮
         pageList : [ 5, 10, 15],//可选择单页记录数
         columns: [
           [

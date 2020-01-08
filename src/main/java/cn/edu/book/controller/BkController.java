@@ -27,7 +27,6 @@ public class BkController {
     public String listAll(){
         List<Bk> list = bkMapper.getAllBk();
         String str = JSON.toJSONString(list);
-        System.out.println(list);
         return str;
     }
 

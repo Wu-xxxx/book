@@ -26,7 +26,12 @@ public class ClassController {
         return str;
     }
 
-
+    @RequestMapping("/getByClgId")
+    public String getByClgName(Integer clgId){
+        List<Class> list = classMapper.getClassByClgId(clgId);
+        String str = JSON.toJSONString(list);
+        return str;
+    }
     @RequestMapping("/query")
     public String getquery(Class class1){
         List<Class> aClass = classMapper.getClass(class1);

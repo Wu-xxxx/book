@@ -45,27 +45,27 @@
                                 <div class="form-inline">
                                     <table>
                                         <tr>
-                                            <td><label
+                                            <td style="text-align: right"><label
                                                     style="width: 80px;margin-bottom: 0px;font-size: 15px">姓名：</label>
                                             </td>
-                                            <td>
-                                                <input id="name" class="form-control input-default" style="width: 150px"/>
+                                            <td style="text-align: right">
+                                                <input id="name" class="form-control input-default" style="width: 100px"/>
                                             </td>
-                                            <td><label
-                                                    style="width: 80px;margin-left:30px;margin-bottom: 0px;font-size: 15px">学号：</label>
-                                            </td>
-                                            <td>
-                                                <input id="userId" class="form-control input-default" style="width: 150px"/>
-                                            </td>
-                                            <td><label style="width: 100px;margin-left:40px;margin-bottom: 0px;font-size: 15px">学院名称：</label>
+                                            <td style="text-align: right"><label
+                                                    style="width: 80px;margin-left:20px;margin-bottom: 0px;font-size: 15px">学号：</label>
                                             </td>
                                             <td>
-                                                <input id="collegeName" class="form-control input-default" style="width: 150px"/>
+                                                <input id="userId" class="form-control input-default" style="width: 100px"/>
                                             </td>
-                                            <td><label style="width: 110px;margin-left:40px;margin-bottom: 0px;font-size: 15px">班级名称：</label>
+                                            <td style="text-align: right"><label style="width: 100px;margin-left:20px;margin-bottom: 0px;font-size: 15px">学院名称：</label>
                                             </td>
                                             <td>
-                                                <input id="className" class="form-control input-default" style="width: 150px"/>
+                                                <input id="collegeName" class="form-control input-default" style="width: 100px"/>
+                                            </td>
+                                            <td style="text-align: right"><label style="width: 110px;margin-left:20px;margin-bottom: 0px;font-size: 15px">班级名称：</label>
+                                            </td>
+                                            <td>
+                                                <input id="className" class="form-control input-default" style="width: 100px"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -78,7 +78,7 @@
 
                         </div>
                         <hr/>
-                        <div class="row">
+                        <div class="row" style="margin-left: 10px;margin-right: 10px">
                             <table class="table-responsive table-striped" id="userTable"></table>
                         </div>
                     </div>
@@ -147,14 +147,18 @@
                                 <td style="text-align: center"><label
                                         style="width: 120px;margin-bottom: 0px;font-size: 15px">学院名称：</label></td>
                                 <td>
-                                    <input id="addclgName" class="form-control input-default" style="width: 150px"/>
+                                    <select id="addClgName" class="form-control input-default" style="width: 150px">
+
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center"><label
                                         style="width: 120px;margin-bottom: 0px;font-size: 15px">班级名称：</label></td>
                                 <td>
-                                    <input id="addClsName" class="form-control input-default" style="width: 150px"/>
+                                    <select id="addClsName" class="form-control input-default" style="width: 150px">
+
+                                    </select>
                                 </td>
                             </tr>
 
@@ -226,14 +230,18 @@
                                 <td style="text-align: center"><label
                                         style="width: 120px;margin-bottom: 0px;font-size: 15px">学院名称：</label></td>
                                 <td>
-                                    <input id="updateclgName" class="form-control input-default" style="width: 150px"/>
+                                    <select id="updateClgName" class="form-control input-default" style="width: 150px">
+
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center"><label
                                         style="width: 120px;margin-bottom: 0px;font-size: 15px">班级名称：</label></td>
                                 <td>
-                                    <input id="updateClsName" class="form-control input-default" style="width: 150px"/>
+                                    <select id="updateClsName" class="form-control input-default" style="width: 150px">
+
+                                    </select>
                                 </td>
                             </tr>
                             <input type="text" id="updateId" hidden="hidden">
@@ -289,7 +297,63 @@
         getAll();
         $("#adduser").click(function () {
             $("#add").modal("show");
+            $("#addClgName").empty();
+            $("#addClgName").append("<option value='1'>请选择</option>")
+            $.ajax({
+                url: '/college/listAll',
+                method: "get",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data,function(i){
+                        $("#addClgName").append("<option value="+data[i].clgId+">"+data[i].clgName+"</option>")
+                    });
+                    console.log(data)
+                }
+            });
         })
+
+        $("#addClgName").change(function(){
+            //console.log($("select[id='equipmentName']").val());
+            //清空select的option
+            $("#addClsName").empty();
+            $("#addClsName").append("<option>请选择</option>");
+            var ClgName = document.getElementById("addClgName").value;
+            if(ClgName!=NaN){
+                var ClgId = parseInt(ClgName);
+                console.log(ClgId)
+                getOption(ClgId)
+            }
+        });
+        $("#updateClgName").change(function(){
+            //console.log($("select[id='equipmentName']").val());
+            //清空select的option
+            $("#updateClsName").empty();
+            $("#updateClsName").append("<option>请选择</option>");
+            var ClgName = document.getElementById("updateClgName").value;
+            if(ClgName!=NaN){
+                var ClgId = parseInt(ClgName);
+                console.log(ClgId)
+                getOption(ClgId)
+            }
+        });
+        function getOption(ClgId){
+            $.ajax({
+                url: '/class/getByClgId',
+                method: "get",
+                data:{clgId:ClgId},
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                clickToSelect: true,
+                success:function (data) {
+                    $.each(data,function(i){
+                        $("#addClsName").append("<option value="+data[i].clsId+">"+data[i].clsName+"</option>")
+                    });
+                    $.each(data,function(i){
+                        $("#updateClsName").append("<option value="+data[i].clsId+">"+data[i].clsName+"</option>")
+                    });
+                }
+            });}
         $("#search").click(function () {
             var name = $("#name").val();
            // var uid = $("#userId").val();
@@ -308,13 +372,17 @@
             });
         })
         $("#useradd").click(function () {
+            //获取学院名称
+
             var name =$("#addName").val();
             var Uid = $("#addUid").val();
             var gender = $("input[name='optionsRadios1']:checked").val()
             var password = $("#addPs").val();
             var role = $("#role").val();
-            var clgName = $("#addclgName").val();
-            var clsName = $("#addClsName").val();
+            var clgName = $("#addClgName").find("option:selected").text();
+            var clsName = $("#addClsName").find("option:selected").text();
+            console.log(clgName);
+            console.log(clsName);
             var user = new Object();
             user.uId = Uid;
             user.name = name;
@@ -324,26 +392,27 @@
             user.role = role;
             user.collegeName = clgName;
             var userJson = JSON.stringify(user);
-            $.ajax({
-                url:'/user/add',
-                method: "post",
-                data:{str:userJson},
-                dataType:'Text',
-                success:function (data) {
-                    $("#add").modal('hide');
-                    getAll();
-                }
-            });
+            // $.ajax({
+            //     url:'/user/add',
+            //     method: "post",
+            //     data:{str:userJson},
+            //     dataType:'Text',
+            //     success:function (data) {
+            //         $("#add").modal('hide');
+            //         getAll();
+            //     }
+            // });
         })
          $("#userupdate").click(function () {
              var updateUser = new Object();
              updateUser.uId = $("#updateUid").val();
              updateUser.name =$("#updateName").val();
              updateUser.gender =$('input:radio:checked').val();
-             updateUser.className = $("#updateClsName").val();
+             updateUser.className = $("#updateClsName").find("option:selected").text();
              updateUser.password = $("#updatePs").val();
              updateUser.role = $("#updaterole").val();
-             updateUser.collegeName = $("#updateclgName").val();
+             updateUser.collegeName = $("#updateClgName").find("option:selected").text();
+
              updateUser.id = $("#updateId").val();
              var updateStr =JSON.stringify(updateUser);
              $.ajax({
@@ -393,15 +462,15 @@
                 // },
                 columns: [
                     [
-                        {
-                            field: "serialNumber",
-                            edit: false,
-                            title: "序号",
-                            align: "center",
-                            formatter: function (value, row, index) {
-                                return index + 1;
-                            }
-                        },
+                        // {
+                        //     field: "serialNumber",
+                        //     edit: false,
+                        //     title: "序号",
+                        //     align: "center",
+                        //     formatter: function (value, row, index) {
+                        //         return index + 1;
+                        //     }
+                        // },
                         {field: "id", edit: false, align: "center", visible: false},
                         {field: "uId", edit: false, title: "用户ID", align: "center"},
                         {field: "name", edit: false, title: "姓名", align: "center"},
@@ -441,15 +510,34 @@
                 '<button type="button" class="RoleOfdelete btn btn-warning  btn-sm" style="margin-right:10px;height: 30px;color: black"><span class="mdi mdi-delete">删除</span></button>'
             ].join('');
         }
-        
+        $("#updateClgName").change(function(){
+            //console.log($("select[id='equipmentName']").val());
+            //清空select的option
+           console.log($("#updateClgName").val());
+        });
         window.operateEvents = {
             'click .RoleOfhandle': function (e, value, row, index) {
+                $("#updateClgName").empty();
+                $("#updateClsName").empty();
+                $("#updateClgName").append("<option value='1'>请选择</option>")
+                $.ajax({
+                    url: '/college/listAll',
+                    method: "get",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $.each(data,function(i){
+                            $("#updateClgName").append("<option value="+data[i].clgId+">"+data[i].clgName+"</option>")
+                        });
+                    }
+                });
+                //$('#updateClgName').filter(function () { return $(this).html() == "机自学院"; }).val();
                 $("#updateUid").val(row.uId);
                 $("#updateName").val(row.name);
-                $("#updateClsName").val(row.className);
+                //$("#updateClsName").val(row.className);
                 $("#updatePs").val(row.password);
                 $("#updaterole").val(row.role);
-                $("#updateclgName").val(row.collegeName);
+                //$("#updateclgName").val(row.collegeName);
                 $("#updateId").val(row.id);
                 if (row.gender=="男"){
                     $("input[name='optionsRadios2'][value='男']").attr("checked",true);

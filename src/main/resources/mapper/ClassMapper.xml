@@ -4,15 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.book.mapper.ClassMapper">
     <!--联表查询-->
-    <select id="getClassById" resultType="java.util.Map">
+    <select id="getClassById" resultType="cn.edu.book.model.Class">
         select *from cls s
         left join college g on  s.collegeId=g.clgId
         where clsId =#{clsId}
     </select>
-
+    <select id="getClassByClgId" resultType="cn.edu.book.model.Class">
+        select *from cls s
+        where collegeId =#{collegeId}
+    </select>
     <!--联表查询-->
     <!--判断条件是否为空-->
-    <select id="getClass" resultType="java.util.Map">
+    <select id="getClass" resultType="cn.edu.book.model.Class">
         select *from cls s
         left join college g on  s.collegeId=g.clgId where 1=1
         <if test="clsId !=null and clsId !=''">
@@ -27,7 +30,7 @@
     </select>
 
     <!--联表查询-->
-    <select id="getAllClass" resultType="java.util.Map">
+    <select id="getAllClass" resultType="cn.edu.book.model.Class">
         select *from cls s
         left join college g on s.collegeId=g.clgId
     </select>
